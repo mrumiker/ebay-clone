@@ -1,6 +1,57 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from djmoney.models.fields import MoneyField
 
 
 class User(AbstractUser):
     pass
+
+
+class Genre(models.Model):
+    name = models.CharField(max_length=64)
+    description = models.CharField(max_length=512)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class Album(models.Model):
+    title = models.CharField(max_length=128)
+    artist = models.CharField(max_length=64)
+    year = models.CharField(max_length=4)
+    description = models.CharField(max_length=512)
+    seller = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="albums_selling")
+    image_url = models.URLField(max_length=200, blank=True)
+    genres = models.ManyToManyField(
+        Genre, blank=True, related_name="genre_albums")
+    datetime_created = models.DateTimeField(auto_now_add=True)
+    datetime_closed = models.DateTimeField(blank=True)
+    watchers = models.ManyToManyField(
+        User, blank=True, related_name="watchlist")
+
+    def __str__(self):
+        return f"{self.title} - {self.artist}"
+
+
+class Bid(models.Model):
+    album = models.ForeignKey(
+        Album, on_delete=models.CASCADE, related_name="album_bids")
+    bidder = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="user_bids")
+    amount = MoneyField(
+        max_digits=6, decimal_places=2, default_currency='USD')
+
+    def __str__(self):
+        return f"{self.bidder} bid {self.amount} on {self.album}"
+
+
+class Comment(models.Model):
+    album = models.ForeignKey(
+        Album, on_delete=models.CASCADE, related_name="album_comments")
+    commenter = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="user_comments")
+    text = models.CharField(max_length=1024)
+
+    def __str__(self):
+        return f"{self.commenter} on {self.album}: {self.text}"
