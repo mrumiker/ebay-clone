@@ -1,10 +1,19 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.forms import ModelForm
 
-from .models import User
+from .models import Album, Bid, User, Genre
+
+
+class AlbumForm(ModelForm):
+    class Meta:
+        model = Album
+        fields = ['title', 'artist', 'year',
+                  'description', 'image_url', 'genres', 'initial_price', 'seller']
 
 
 def index(request):
@@ -61,3 +70,20 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
+
+
+@login_required
+def create(request):
+    if request.method == 'POST':
+        form = AlbumForm(request.POST)
+        # form.add({"seller": request.POST["seller"]})
+
+        if form.is_valid():
+            # return render(request, "auctions/test.html", {
+            #     "form_data": form
+            # })
+            form.save()
+            return HttpResponseRedirect(reverse("index"))
+    return render(request, "auctions/create.html", {
+        "album_form": AlbumForm(),
+    })

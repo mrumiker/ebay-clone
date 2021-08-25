@@ -26,7 +26,9 @@ class Album(models.Model):
     genres = models.ManyToManyField(
         Genre, blank=True, related_name="genre_albums")
     datetime_created = models.DateTimeField(auto_now_add=True)
-    datetime_closed = models.DateTimeField(blank=True)
+    datetime_closed = models.DateTimeField(blank=True, null=True)
+    initial_price = MoneyField(
+        default=0, max_digits=6, decimal_places=2, default_currency='USD')
     watchers = models.ManyToManyField(
         User, blank=True, related_name="watchlist")
 
