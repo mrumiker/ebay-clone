@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -17,7 +18,10 @@ class AlbumForm(ModelForm):
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+    active_listings = Album.objects.filter(datetime_closed=None)
+    return render(request, "auctions/index.html", {
+        "active_listings": active_listings
+    })
 
 
 def login_view(request):
@@ -76,14 +80,11 @@ def register(request):
 def create(request):
     if request.method == 'POST':
         form = AlbumForm(request.POST)
-        # form.add({"seller": request.POST["seller"]})
 
         if form.is_valid():
-            # return render(request, "auctions/test.html", {
-            #     "form_data": form
-            # })
             form.save()
             return HttpResponseRedirect(reverse("index"))
+        raise ValidationError("Something went wrong. Please try again.")
     return render(request, "auctions/create.html", {
         "album_form": AlbumForm(),
     })
