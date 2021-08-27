@@ -5,19 +5,19 @@
 <form action="{% url 'create' %}" method="post">
   {% csrf_token %}
   <div class="form-group">
-    <label for="albumName">Title </label> {{ album_form.title }} <label for="artistName">Artist </label>
+    <label for="albumName">Title </label>{{ album_form.title }} <label for="artistName">Artist </label>
     {{ album_form.artist }}
-    <label for="releaseYear">Year </label> {{ album_form.year }}<br />
+    <label for="releaseYear">Year </label>{{ album_form.year }}<br />
   </div>
   <div class="form-group">
-    <label for="albumDescription">Description </label> {{ album_form.description }}
-    <label for="albumCover">Image Url </label> {{ album_form.image_url }}
+    <label for="albumDescription">Description </label>{{ album_form.description }}
+    <label for="albumCover">Image Url </label>{{ album_form.image_url }}
   </div>
   <div class="form-group">
-    <label for="albumGenres">Genres </label> {{ album_form.genres }}
+    <label for="albumGenres">Genres </label>{{ album_form.genres }} <span>{{ album_form.genres.help_text }}</span>
   </div>
   <div class="form-group">
-    <label for="albumPrice">Asking price </label> {{ album_form.initial_price }}
+    <label for="albumPrice">Asking price </label>{{ album_form.initial_price }}
   </div>
 
   <input type="hidden" name="seller" value="{{ user.id }}"><br />

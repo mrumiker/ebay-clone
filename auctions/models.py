@@ -24,7 +24,7 @@ class Album(models.Model):
         User, on_delete=models.CASCADE, related_name="albums_selling")
     image_url = models.URLField(max_length=200, blank=True)
     genres = models.ManyToManyField(
-        Genre, blank=True, related_name="genre_albums")
+        Genre, blank=True, related_name="genre_albums", help_text="Hold Shift Key to Select Multiple Genres")
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_closed = models.DateTimeField(blank=True, null=True)
     initial_price = MoneyField(
