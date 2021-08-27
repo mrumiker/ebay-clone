@@ -15,7 +15,7 @@
         Offered by {{ album.seller }} on {{ album.datetime_created }}<br />
         {% endif %}
         Current bid is {{ album.initial_price }}<br />
-        <img src="{{ album.image_url }}" alt="cover of {{ album }}" style="height: 355px;">
+        <img src="{{ album.image_url }}" alt="cover of {{ album }}" style="width: 355px;">
     </li>
     {% endfor %}
 </ul>
