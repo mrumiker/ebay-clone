@@ -14,7 +14,8 @@
     <label for="albumCover">Image Url </label>{{ album_form.image_url }}
   </div>
   <div class="form-group">
-    <label for="albumGenres">Genres </label>{{ album_form.genres }} <span>{{ album_form.genres.help_text }}</span>
+    <label for="albumGenres">Genres </label>{{ album_form.genres }}
+    <small class="form-text text-muted">{{ album_form.genres.help_text }}</small>
   </div>
   <div class="form-group">
     <label for="albumPrice">Asking price </label>{{ album_form.initial_price }}
