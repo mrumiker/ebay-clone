@@ -88,3 +88,16 @@ def create(request):
     return render(request, "auctions/create.html", {
         "album_form": AlbumForm(),
     })
+
+
+def test(request):
+    if request.method == 'POST':
+        form = AlbumForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("index"))
+        raise ValidationError("Something went wrong. Please try again.")
+    return render(request, "auctions/test.html", {
+        "form": AlbumForm()
+    })

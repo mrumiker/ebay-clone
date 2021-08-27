@@ -2,6 +2,18 @@
 
 {% block body %}
 <h2>Test</h2>
-<p>{{ form_data }}</p>
+<form action="{% url 'create' %}" method="post">
+  {% csrf_token %}
+  <label for="albumName">Title </label> {{ form.title }}
+  <label for="artistName">Artist </label> {{ form.artist }}
+  <label for="releaseYear">Year </label> {{ form.year }}<br />
+  <label for="albumDescription">Description: </label> {{ form.description }}
+  <label for="albumCover">Image Url: </label> {{ form.image_url }}<br />
+  <label for="albumGenres">Genres: </label> {{ form.genres }}<br />
+  <label for="albumPrice">Asking price: </label> {{ form.initial_price }}
+
+  <input type="hidden" name="seller" value="{{ user.id }}"><br />
+  <input type="submit" value="Submit">
+</form>
 
 {% endblock %}
