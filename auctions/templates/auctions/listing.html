@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Album Details</h2>
+<div class="album-container">
+  <a href="{% url 'index' %}">
+    <p>⬅️</p>
+  </a>
+  <h3>{{ album.title }}</h3>
+  <h4>{{ album.artist }} - {{ album.year }}</h4>
+
+  {% if user.id == album.seller.id %}
+  <p>Offered by you on {{ album.datetime_created }}<br />
+    {% else %}
+  <p>Offered by {{ album.seller }} on {{ album.datetime_created }}<br />
+    {% endif %}
+    Current bid is {{ album.initial_price }}</p>
+  <img src="{{ album.image_url }}" alt="cover of {{ album }}" style="width: 355px;">
+  <a href="{% url 'index' %}">
+    <p>Go Back</p>
+  </a>
+</div>
+
+{% endblock %}

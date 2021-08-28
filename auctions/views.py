@@ -90,6 +90,13 @@ def create(request):
     })
 
 
+def listing(request, album_id):
+    album = Album.objects.get(id=album_id)
+    return render(request, "auctions/listing.html", {
+        "album": album
+    })
+
+
 def test(request):
     if request.method == 'POST':
         form = AlbumForm(request.POST)
