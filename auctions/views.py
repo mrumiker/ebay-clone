@@ -92,8 +92,10 @@ def create(request):
 
 def listing(request, album_id):
     album = Album.objects.get(id=album_id)
+    genres = album.genres.all()
     return render(request, "auctions/listing.html", {
-        "album": album
+        "album": album,
+        "genres": genres,
     })
 
 

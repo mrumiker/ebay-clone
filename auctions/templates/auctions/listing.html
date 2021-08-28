@@ -8,13 +8,21 @@
   </a>
   <h3>{{ album.title }}</h3>
   <h4>{{ album.artist }} - {{ album.year }}</h4>
-
+  <h5>Genres:</h5>
+  <ul>
+    {% for genre in genres %}
+    <li>
+      <h6>{{ genre }}</h6>
+    </li>
+  </ul>
+  {% endfor %}
+  <p>{{ album.description }}</p>
   {% if user.id == album.seller.id %}
   <p>Offered by you on {{ album.datetime_created }}<br />
     {% else %}
   <p>Offered by {{ album.seller }} on {{ album.datetime_created }}<br />
     {% endif %}
-    Current bid is {{ album.initial_price }}</p>
+    Current bid is <b>{{ album.initial_price }}</b></p>
   <img src="{{ album.image_url }}" alt="cover of {{ album }}" style="width: 355px;">
   <a href="{% url 'index' %}">
     <p>Go Back</p>
