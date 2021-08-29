@@ -3,21 +3,28 @@
 {% block body %}
 <h2>Active Listings</h2>
 
-<ul>
-    {% for album in active_listings %}
-    <li>
-        {{ album.title }}<br />
-        {{ album.artist }}<br />
-        {{ album.year }}<br />
+<!-- <ul> -->
+{% for album in active_listings %}
+<!-- <li> -->
+<div class="card" style="width: 24rem; margin: 2rem 0;">
+    <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
+    <div class="card-body">
+        <h4 class="card-title">{{ album.title }}</h4>
+        <h5 class="card-subtitle">{{ album.artist }}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
         {% if user.id == album.seller.id %}
-        Offered by you on {{ album.datetime_created }}<br />
+        <li class="list-group-item">Offered by you on {{ album.datetime_created }}</li>
         {% else %}
-        Offered by {{ album.seller }} on {{ album.datetime_created }}<br />
+        <li class="list-group-item">Offered by {{ album.seller }} on {{ album.datetime_created }}</li>
         {% endif %}
-        Current bid is {{ album.initial_price }}<br />
-        <img src="{{ album.image_url }}" alt="cover of {{ album }}" style="width: 355px;"><br />
-        <a href="{% url 'listing' album.id %}">More Info</a>
-    </li>
-    {% endfor %}
-</ul>
+        <li class="list-group-item">Current bid is {{ album.initial_price }}</li>
+    </ul>
+    <div class="card-body">
+        <a href="{% url 'listing' album.id %}" class="card-link">Go to Listing</a>
+    </div>
+</div>
+<!-- </li> -->
+{% endfor %}
+<!-- </ul> -->
 {% endblock %}
