@@ -24,7 +24,7 @@ class Album(models.Model):
         User, on_delete=models.CASCADE, related_name="albums_selling")
     image_url = models.URLField(max_length=200, blank=True)
     genres = models.ManyToManyField(
-        Genre, blank=True, related_name="genre_albums", help_text="Hold Shift Key to Select Multiple Genres")
+        Genre, blank=True, related_name="albums", help_text="Hold Shift Key to Select Multiple Genres")
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_closed = models.DateTimeField(blank=True, null=True)
     initial_price = MoneyField(
@@ -38,9 +38,9 @@ class Album(models.Model):
 
 class Bid(models.Model):
     album = models.ForeignKey(
-        Album, on_delete=models.CASCADE, related_name="album_bids")
+        Album, on_delete=models.CASCADE, related_name="bids")
     bidder = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="user_bids")
+        User, on_delete=models.CASCADE, related_name="bids")
     amount = MoneyField(
         max_digits=6, decimal_places=2, default_currency='USD')
 
@@ -50,9 +50,9 @@ class Bid(models.Model):
 
 class Comment(models.Model):
     album = models.ForeignKey(
-        Album, on_delete=models.CASCADE, related_name="album_comments")
+        Album, on_delete=models.CASCADE, related_name="comments")
     commenter = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="user_comments")
+        User, on_delete=models.CASCADE, related_name="comments")
     text = models.CharField(max_length=1024)
 
     def __str__(self):
