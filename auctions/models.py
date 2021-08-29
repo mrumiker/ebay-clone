@@ -4,10 +4,12 @@ from djmoney.models.fields import MoneyField
 
 
 class User(AbstractUser):
+    id = models.AutoField(primary_key=True)
     pass
 
 
 class Genre(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=512)
 
@@ -16,6 +18,7 @@ class Genre(models.Model):
 
 
 class Album(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=128)
     artist = models.CharField(max_length=64)
     year = models.CharField(max_length=4)
@@ -37,6 +40,7 @@ class Album(models.Model):
 
 
 class Bid(models.Model):
+    id = models.AutoField(primary_key=True)
     album = models.ForeignKey(
         Album, on_delete=models.CASCADE, related_name="bids")
     bidder = models.ForeignKey(
@@ -49,6 +53,7 @@ class Bid(models.Model):
 
 
 class Comment(models.Model):
+    id = models.AutoField(primary_key=True)
     album = models.ForeignKey(
         Album, on_delete=models.CASCADE, related_name="comments")
     commenter = models.ForeignKey(
