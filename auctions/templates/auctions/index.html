@@ -3,10 +3,8 @@
 {% block body %}
 <h2>Active Listings</h2>
 
-<!-- <ul> -->
 {% for album in active_listings %}
-<!-- <li> -->
-<div class="card" style="width: 24rem; margin: 2rem 0;">
+<div class="card my-4" style="width: 26rem;">
     <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
     <div class="card-body">
         <h4 class="card-title">{{ album.title }}</h4>
@@ -18,13 +16,11 @@
         {% else %}
         <li class="list-group-item">Offered by {{ album.seller }} on {{ album.datetime_created }}</li>
         {% endif %}
-        <li class="list-group-item">Current bid is {{ album.initial_price }}</li>
+        <li class="list-group-item">Current bid is <b>{{ album.initial_price }}</b></li>
     </ul>
     <div class="card-body">
         <a href="{% url 'listing' album.id %}" class="card-link">Go to Listing</a>
     </div>
 </div>
-<!-- </li> -->
 {% endfor %}
-<!-- </ul> -->
 {% endblock %}
