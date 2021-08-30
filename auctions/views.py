@@ -80,7 +80,6 @@ def register(request):
 def create(request):
     if request.method == 'POST':
         form = AlbumForm(request.POST)
-
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("index"))
@@ -93,10 +92,29 @@ def create(request):
 def listing(request, album_id):
     album = Album.objects.get(id=album_id)
     genres = album.genres.all()
+    watchers = album.watchers.all()
+    watchersIds = map(lambda watcher: watcher.id, watchers)
     return render(request, "auctions/listing.html", {
         "album": album,
         "genres": genres,
+        "watchersIds": watchersIds,
     })
+
+
+@login_required
+def add_to_watchlist(request, album_id, user_id):
+    album = Album.objects.get(id=album_id)
+    watcher = User.objects.get(id=user_id)
+    album.watchers.add(watcher)
+    return HttpResponseRedirect(reverse("listing", args=[album_id]))
+
+
+@login_required
+def delete_from_watchlist(request, album_id, user_id):
+    album = Album.objects.get(id=album_id)
+    watcher = User.objects.get(id=user_id)
+    album.watchers.remove(watcher)
+    return HttpResponseRedirect(reverse("listing", args=[album_id]))
 
 
 def test(request):

@@ -5,7 +5,6 @@ from djmoney.models.fields import MoneyField
 
 class User(AbstractUser):
     id = models.AutoField(primary_key=True)
-    pass
 
 
 class Genre(models.Model):

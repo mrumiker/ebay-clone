@@ -23,6 +23,13 @@
   <p>Offered by {{ album.seller }} on {{ album.datetime_created }}<br />
     {% endif %}
     Current bid is <b>{{ album.initial_price }}</b></p>
+  {% if user.is_authenticated %}
+  {% if user.id in watchersIds %}
+  <p><a href="{% url 'delete_from_watchlist' user.id album.id %}">Remove from Watchlist</a></p>
+  {% else %}
+  <p><a href="{% url 'add_to_watchlist' user.id album.id %}">Add to Watchlist</a></p>
+  {% endif %}
+  {% endif %}
   <img src="{{ album.image_url }}" alt="cover of {{ album }}" style="width: 355px;">
   <a href="{% url 'index' %}">
     <p>Go Back</p>
