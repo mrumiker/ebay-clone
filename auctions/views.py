@@ -93,10 +93,14 @@ def listing(request, album_id):
     album = Album.objects.get(id=album_id)
     genres = album.genres.all()
     watchers = album.watchers.all()
-    watchersIds = map(lambda watcher: watcher.id, watchers)
+    # watchersIds = map(lambda watcher: watcher.id, watchers)
+    watchersIds = []
+    for watcher in watchers:
+        watchersIds.append(watcher.id)
     return render(request, "auctions/listing.html", {
         "album": album,
         "genres": genres,
+        "watchers": watchers,
         "watchersIds": watchersIds,
     })
 

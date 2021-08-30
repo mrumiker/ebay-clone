@@ -2,38 +2,51 @@
 
 {% block body %}
 <h2>Album Details</h2>
-<div class="album-container">
-  <a href="{% url 'index' %}">
-    <p>⬅️</p>
-  </a>
-  <h3>{{ album.title }}</h3>
-  <h4>{{ album.artist }} - {{ album.year }}</h4>
-  <h5>Genres:</h5>
-  <ul>
-    {% for genre in genres %}
-    <li>
-      <h6>{{ genre }}</h6>
+
+<div class="card" style="width: 26rem;">
+  <div class="card-header"><a href="{% url 'index' %}">⬅️</a></div>
+  <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
+  <div class="card-body" style="background-color: linen;">
+    <h4 class="card-title">{{ album.title }}</h4>
+    <h5 class="card-subtitle mb-2">{{ album.artist }}</h5>
+    <h6 class="card-text">{{ album.year }}</h6>
+    <p class="card-text">{{ album.description }}</p>
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item" style="background-color: floralwhite;">
+      <h6 class="mb-0">Genres</h6>
     </li>
+    {% for genre in genres %}
+    <li class="list-group-item list-group-flush px-5" style="background-color: floralwhite;">
+      {{ genre }}
+    </li>
+    {% endfor %}
   </ul>
-  {% endfor %}
-  <p>{{ album.description }}</p>
-  {% if user.id == album.seller.id %}
-  <p>Offered by you on {{ album.datetime_created }}<br />
+  <div class="card-body" style="background-color: oldlace;"></div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item" style="background-color: oldlace;">Current bid is <b>{{ album.initial_price }}</b>
+    </li>
+    {% if user.id == album.seller.id %}
+    <li class="list-group-item text-muted" style="background-color: oldlace;">Offered by you on
+      {{ album.datetime_created }}
+    </li>
     {% else %}
-  <p>Offered by {{ album.seller }} on {{ album.datetime_created }}<br />
+    <li class="list-group-item text-muted" style="background-color: oldlace;">
+      Offered by {{ album.seller }} on {{ album.datetime_created }}
+    </li>
     {% endif %}
-    Current bid is <b>{{ album.initial_price }}</b></p>
-  {% if user.is_authenticated %}
-  {% if user.id in watchersIds %}
-  <p><a href="{% url 'delete_from_watchlist' user.id album.id %}">Remove from Watchlist</a></p>
-  {% else %}
-  <p><a href="{% url 'add_to_watchlist' user.id album.id %}">Add to Watchlist</a></p>
-  {% endif %}
-  {% endif %}
-  <img src="{{ album.image_url }}" alt="cover of {{ album }}" style="width: 355px;">
-  <a href="{% url 'index' %}">
-    <p>Go Back</p>
-  </a>
+  </ul>
+  <div class="card-footer">
+    <a href="{% url 'index' %}" class="card-link">Go Back</a>
+    {% if user.is_authenticated %}
+    {% if user.id in watchersIds %}
+    <a href="{% url 'delete_from_watchlist' user.id album.id %}" class="card-link">Remove from Watchlist</a>
+    {% else %}
+    <a href="{% url 'add_to_watchlist' user.id album.id %}" class="card-link">Add to Watchlist</a>
+    {% endif %}
+    {% endif %}
+  </div>
 </div>
 
 {% endblock %}
