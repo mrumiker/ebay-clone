@@ -37,6 +37,15 @@
     </li>
     {% endif %}
   </ul>
+  {% if user.is_authenticated %}
+  <div class="card-body text-center">
+    {% if user.id == album.seller.id %}
+    <a href='#' class="btn btn-danger w-100">CLOSE THIS LISTING</a>
+    {% else %}
+    <a href='#' class="btn btn-primary w-100">BID ON THIS ALBUM</a>
+    {% endif %}
+  </div>
+  {% endif %}
   <div class="card-footer">
     <a href="{% url 'index' %}" class="card-link">Go Back</a>
     {% if user.is_authenticated %}
