@@ -42,7 +42,14 @@
     {% if user.id == album.seller.id %}
     <a href='#' class="btn btn-danger w-100">CLOSE THIS LISTING</a>
     {% else %}
-    <a href='#' class="btn btn-primary w-100">BID ON THIS ALBUM</a>
+    <form action="{% url 'bid' %}" method="post">
+      {% csrf_token %}
+      {{ form.amount }}
+      <input type="hidden" name="album" value="{{ album.id }}">
+      <input type="hidden" name="bidder" value="{{ user.id }}">
+      <input class="btn btn-primary w-100" type="submit" value="BID ON THIS ALBUM">
+    </form>
+
     {% endif %}
   </div>
   {% endif %}

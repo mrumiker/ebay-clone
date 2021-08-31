@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.forms import ModelForm
+from django.contrib import messages
 
 from .models import Album, Bid, User, Genre
 
@@ -107,7 +108,33 @@ def listing(request, album_id):
         "genres": genres,
         "watchers": watchers,
         "watchersIds": watchersIds,
+        "form": BidForm(),
     })
+
+
+@login_required
+def bid(request):
+    form = BidForm(request.POST)
+    album_id = request.POST["album"]
+    bid = float(request.POST["amount_0"])
+    album = Album.objects.get(id=album_id)
+    initial_price = album.initial_price.amount
+    album_bids = album.bids.all()
+    previous_bids = []
+    for album_bid in album_bids:
+        previous_bids.append(album_bid.amount)
+    if form.is_valid:
+        if (not len(previous_bids) and bid > initial_price) or (len(previous_bids) and bid > max(previous_bids)):
+            form.save()
+            messages.info(request, "Your bid was successful!")
+        else:
+            messages.info(
+                request, "Your bid must be higher than the current price")
+    else:
+        messages.info(
+            request, "Something went wrong. Please try your bid again.")
+
+    return HttpResponseRedirect(reverse("listing", args=[album_id]))
 
 
 @login_required
