@@ -25,7 +25,8 @@
   </ul>
   <div class="card-body" style="background-color: oldlace;"></div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item" style="background-color: oldlace;">Current bid is <b>{{ album.initial_price }}</b>
+    <li class="list-group-item" style="background-color: oldlace;">
+      Current bid is <b>${{ max_bid }}</b> by {{ max_bidder }}
     </li>
     {% if user.id == album.seller.id %}
     <li class="list-group-item text-muted" style="background-color: oldlace;">Offered by you on

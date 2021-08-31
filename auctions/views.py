@@ -103,12 +103,25 @@ def listing(request, album_id):
     watchersIds = []
     for watcher in watchers:
         watchersIds.append(watcher.id)
+    bids = album.bids.all()
+    bid_amounts = []
+    for bid in bids:
+        bid_amounts.append(bid.amount.amount)
+    if len(bid_amounts):
+        max_bid = max(bid_amounts)
+        max_bidder = Bid.objects.get(amount=(max_bid, "USD")).bidder
+    else:
+        max_bid = album.initial_price.amount
+        max_bidder = album.seller
+
     return render(request, "auctions/listing.html", {
         "album": album,
         "genres": genres,
         "watchers": watchers,
         "watchersIds": watchersIds,
         "form": BidForm(),
+        "max_bid": max_bid,
+        "max_bidder": max_bidder,
     })
 
 
