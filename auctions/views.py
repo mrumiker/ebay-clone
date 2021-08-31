@@ -100,9 +100,6 @@ def listing(request, album_id):
     album = Album.objects.get(id=album_id)
     genres = album.genres.all()
     watchers = album.watchers.all()
-    watchersIds = []
-    for watcher in watchers:
-        watchersIds.append(watcher.id)
     bids = album.bids.all()
     bid_amounts = []
     for bid in bids:
@@ -118,7 +115,6 @@ def listing(request, album_id):
         "album": album,
         "genres": genres,
         "watchers": watchers,
-        "watchersIds": watchersIds,
         "form": BidForm(),
         "max_bid": max_bid,
         "max_bidder": max_bidder,
@@ -142,7 +138,7 @@ def bid(request):
             messages.info(request, "Your bid was successful!")
         else:
             messages.info(
-                request, "Your bid must be higher than the current price")
+                request, "Your bid must be higher than the current price.")
     else:
         messages.info(
             request, "Something went wrong. Please try your bid again.")

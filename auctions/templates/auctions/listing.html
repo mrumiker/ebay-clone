@@ -4,7 +4,7 @@
 <h2>Album Details</h2>
 {% if messages %}
 <div class="alert alert-warning" role="alert">
-  {% for message in messages%}
+  {% for message in messages %}
   {{ message }}
   {% endfor %}
 </div>
@@ -69,7 +69,7 @@
   <div class="card-footer">
     <a href="{% url 'index' %}" class="card-link">Go Back</a>
     {% if user.is_authenticated %}
-    {% if user.id in watchersIds %}
+    {% if user in watchers %}
     <a href="{% url 'delete_from_watchlist' user.id album.id %}" class="card-link">Remove from Watchlist</a>
     {% else %}
     <a href="{% url 'add_to_watchlist' user.id album.id %}" class="card-link">Add to Watchlist</a>
