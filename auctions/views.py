@@ -124,7 +124,7 @@ def bid(request):
     for album_bid in album_bids:
         previous_bids.append(album_bid.amount)
     if form.is_valid:
-        if (not len(previous_bids) and bid > initial_price) or (len(previous_bids) and bid > max(previous_bids)):
+        if (not len(previous_bids) and bid > initial_price) or (len(previous_bids) and bid > max(previous_bids).amount):
             form.save()
             messages.info(request, "Your bid was successful!")
         else:
