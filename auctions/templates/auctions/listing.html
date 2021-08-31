@@ -57,7 +57,8 @@
     {% else %}
     <form action="{% url 'bid' %}" method="post">
       {% csrf_token %}
-      {{ form.amount }}
+      <input type="number" name="amount_0" step="0.01" required id="id_amount_0" placeholder="Enter a Bid">
+      <input type="hidden" name="amount_1" value="USD" id="id_amount_1">
       <input type="hidden" name="album" value="{{ album.id }}">
       <input type="hidden" name="bidder" value="{{ user.id }}">
       <input class="btn btn-primary w-100" type="submit" value="BID ON THIS ALBUM">
