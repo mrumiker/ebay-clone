@@ -135,6 +135,11 @@ def bid(request):
     if form.is_valid:
         if (not len(previous_bids) and bid > initial_price) or (len(previous_bids) and bid > max(previous_bids).amount):
             form.save()
+            album.top_bid = bid
+            album.top_bid_currency = 'USD'
+            bidder_id = request.POST["bidder"]
+            album.top_bidder = User.objects.get(id=bidder_id)
+            album.save()
             messages.info(request, "Your bid was successful!")
         else:
             messages.info(

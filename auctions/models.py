@@ -31,6 +31,10 @@ class Album(models.Model):
     datetime_closed = models.DateTimeField(blank=True, null=True)
     initial_price = MoneyField(
         default=0, max_digits=6, decimal_places=2, default_currency='USD')
+    top_bid = MoneyField(
+        max_digits=6, decimal_places=2, default_currency='USD', blank=True, null=True)
+    top_bidder = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name="winning", blank=True, null=True)
     watchers = models.ManyToManyField(
         User, blank=True, related_name="watchlist")
 
