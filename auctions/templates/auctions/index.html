@@ -11,7 +11,16 @@
         <h5 class="card-subtitle">{{ album.artist }}</h5>
     </div>
     <ul class="list-group list-group-flush">
+        {% if album.top_bid %}
+        {% if user.id == album.top_bidder.id %}
+        <li class="list-group-item" style="background-color: honeydew;">Current bid is <b>{{ album.top_bid }}</b> by you
+        </li>
+        {% else %}
+        <li class="list-group-item">Current bid is <b>{{ album.top_bid }}</b> by {{ album.top_bidder }}</li>
+        {% endif %}
+        {% else %}
         <li class="list-group-item">Current bid is <b>{{ album.initial_price }}</b></li>
+        {% endif %}
         {% if user.id == album.seller.id %}
         <li class="list-group-item text-muted">Offered by you on {{ album.datetime_created }}</li>
         {% else %}

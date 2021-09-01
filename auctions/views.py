@@ -106,7 +106,8 @@ def listing(request, album_id):
         bid_amounts.append(bid.amount.amount)
     if len(bid_amounts):
         max_bid = max(bid_amounts)
-        max_bidder = Bid.objects.get(amount=(max_bid, "USD")).bidder
+        max_bidder = Bid.objects.get(
+            album=album, amount=(max_bid, "USD")).bidder
     else:
         max_bid = album.initial_price.amount
         max_bidder = album.seller
