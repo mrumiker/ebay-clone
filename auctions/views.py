@@ -27,9 +27,17 @@ class BidForm(ModelForm):
 
 
 def index(request):
-    active_listings = Album.objects.filter(datetime_closed=None)
+    albums = Album.objects.all()
+    active_listings = []
+    closed_listings = []
+    for album in albums:
+        if album.datetime_closed:
+            closed_listings.append(album)
+        else:
+            active_listings.append(album)
     return render(request, "auctions/index.html", {
-        "active_listings": active_listings
+        "active_listings": active_listings,
+        "closed_listings": closed_listings,
     })
 
 
