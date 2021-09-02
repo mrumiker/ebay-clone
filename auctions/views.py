@@ -157,6 +157,7 @@ def add_to_watchlist(request, album_id, user_id):
     album = Album.objects.get(id=album_id)
     watcher = User.objects.get(id=user_id)
     album.watchers.add(watcher)
+    messages.info(request, f"{album} added to Watchlist")
     return HttpResponseRedirect(reverse("listing", args=[album_id]))
 
 
@@ -165,6 +166,7 @@ def delete_from_watchlist(request, album_id, user_id):
     album = Album.objects.get(id=album_id)
     watcher = User.objects.get(id=user_id)
     album.watchers.remove(watcher)
+    messages.info(request, f"{album} removed from Watchlist")
     return HttpResponseRedirect(reverse("listing", args=[album_id]))
 
 
