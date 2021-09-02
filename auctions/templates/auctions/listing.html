@@ -31,7 +31,27 @@
   </ul>
   <div class="card-body" style="background-color: oldlace;"></div>
   <ul class="list-group list-group-flush">
-    {% if user.id == max_bidder.id %}
+    {% if album.datetime_closed %}
+    {% if max_bidder == seller %}
+    {% if user == seller %}
+    <li class="list-group-item" style="background-color: oldlace;">
+      Listing withdrawn by you on {{ album.datetime_closed }}
+    </li>
+    {% else %}
+    <li class="list-group-item" style="background-color: oldlace;">
+      Listing withdrawn by {{ seller }} on {{ album.datetime_closed }}
+    </li>
+    {% endif %}
+    {% elif max_bidder == user %}
+    <li class="list-group-item" style="background-color: oldlace;">
+      SOLD to YOU on {{ album.datetime_closed }} for ${{ max_bid }}!
+    </li>
+    {% else %}
+    <li class="list-group-item" style="background-color: oldlace;">
+      SOLD to {{ max_bidder }} on {{ album.datetime_closed }} for ${{ max_bid }}
+    </li>
+    {% endif %}
+    {% elif user.id == max_bidder.id %}
     <li class="list-group-item" style="background-color: oldlace;">
       Current bid is <b>${{ max_bid }}</b> by you
     </li>
@@ -53,7 +73,11 @@
   {% if user.is_authenticated %}
   <div class="card-body text-center">
     {% if user.id == album.seller.id %}
-    <a href='#' class="btn btn-danger w-100">CLOSE THIS LISTING</a>
+    <form action="{% url 'close' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="album" value="{{ album.id }}">
+      <input type="submit" class="btn btn-danger w-100" value="CLOSE THIS LISTING">
+    </form>
     {% else %}
     <form action="{% url 'bid' %}" method="post">
       {% csrf_token %}
@@ -84,7 +108,5 @@
     {% endif %}
   </div>
 </div>
-
-
 
 {% endblock %}

@@ -8,6 +8,8 @@ from django.urls import reverse
 from django.forms import ModelForm
 from django.contrib import messages
 
+from datetime import datetime
+
 from .models import Album, Bid, User, Genre
 
 
@@ -149,6 +151,16 @@ def bid(request):
         messages.info(
             request, "Something went wrong. Please try your bid again.")
 
+    return HttpResponseRedirect(reverse("listing", args=[album_id]))
+
+
+@login_required
+def close(request):
+    album_id = request.POST["album"]
+    album = Album.objects.get(id=album_id)
+    album.datetime_closed = datetime.now()
+    album.save()
+    messages.info(request, "Listing Closed!")
     return HttpResponseRedirect(reverse("listing", args=[album_id]))
 
 
