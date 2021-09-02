@@ -45,13 +45,14 @@
     <ul class="list-group list-group-flush">
         {% if album.top_bid %}
         {% if user.id == album.top_bidder.id %}
-        <li class="list-group-item" style="background-color: honeydew;">Current bid is <b>{{ album.top_bid }}</b> by you
-        </li>
+        <li class="list-group-item" style="background-color: honeydew;"><b>SOLD TO YOU</b> for {{ album.top_bid }}!</li>
         {% else %}
-        <li class="list-group-item">Current bid is <b>{{ album.top_bid }}</b> by {{ album.top_bidder }}</li>
+        <li class="list-group-item"><b>SOLD</b> to {{ album.top_bidder }} for {{ album.top_bid }}</li>
         {% endif %}
+        {% elif user == album.seller %}
+        <li class="list-group-item">Withdrawn by you on {{ album.datetime_closed }}</li>
         {% else %}
-        <li class="list-group-item">Current bid is <b>{{ album.initial_price }}</b></li>
+        <li class="list-group-item">Withdrawn by {{ album.seller }} on {{ album.datetime_closed }}</li>
         {% endif %}
         {% if user.id == album.seller.id %}
         <li class="list-group-item text-muted">Offered by you on {{ album.datetime_created }}</li>

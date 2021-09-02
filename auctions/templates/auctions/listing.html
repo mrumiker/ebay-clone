@@ -44,11 +44,11 @@
     {% endif %}
     {% elif max_bidder == user %}
     <li class="list-group-item" style="background-color: oldlace;">
-      SOLD to YOU on {{ album.datetime_closed }} for ${{ max_bid }}!
+      <b>SOLD TO YOU</b> on {{ album.datetime_closed }} for ${{ max_bid }}!
     </li>
     {% else %}
     <li class="list-group-item" style="background-color: oldlace;">
-      SOLD to {{ max_bidder }} on {{ album.datetime_closed }} for ${{ max_bid }}
+      <b>SOLD</b> to {{ max_bidder }} on {{ album.datetime_closed }} for ${{ max_bid }}
     </li>
     {% endif %}
     {% elif user.id == max_bidder.id %}
@@ -72,7 +72,9 @@
   </ul>
   {% if user.is_authenticated %}
   <div class="card-body text-center">
-    {% if user.id == album.seller.id %}
+    {% if album.datetime_closed %}
+    <button type="button" class="btn btn-secondary w-100" disabled>NOT FOR SALE</button>
+    {% elif user.id == album.seller.id %}
     <form action="{% url 'close' %}" method="post">
       {% csrf_token %}
       <input type="hidden" name="album" value="{{ album.id }}">
