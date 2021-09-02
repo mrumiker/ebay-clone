@@ -32,14 +32,14 @@
   <div class="card-body" style="background-color: oldlace;"></div>
   <ul class="list-group list-group-flush">
     {% if album.datetime_closed %}
-    {% if max_bidder == seller %}
-    {% if user == seller %}
+    {% if max_bidder == album.seller %}
+    {% if user == album.seller %}
     <li class="list-group-item" style="background-color: oldlace;">
       Listing withdrawn by you on {{ album.datetime_closed }}
     </li>
     {% else %}
     <li class="list-group-item" style="background-color: oldlace;">
-      Listing withdrawn by {{ seller }} on {{ album.datetime_closed }}
+      Listing withdrawn by {{ album.seller }} on {{ album.datetime_closed }}
     </li>
     {% endif %}
     {% elif max_bidder == user %}
