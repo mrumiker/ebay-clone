@@ -10,7 +10,7 @@ from django.contrib import messages
 
 from datetime import datetime
 
-from .models import Album, Bid, User, Genre
+from .models import Album, Bid, Comment, User, Genre
 
 
 class AlbumForm(ModelForm):
@@ -24,6 +24,12 @@ class BidForm(ModelForm):
     class Meta:
         model = Bid
         fields = ['album', 'bidder', 'amount']
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['album', 'commenter', 'text']
 
 
 def index(request):
@@ -170,6 +176,20 @@ def close(request):
     album.save()
     messages.info(request, "Listing Closed!")
     return HttpResponseRedirect(reverse("listing", args=[album_id]))
+
+
+@login_required
+def comment(request):
+    form = CommentForm(request.POST)
+    album_id = request.POST["album"]
+    if form.is_valid:
+        form.save()
+        messages.info(request, "Your Comment was Posted")
+    else:
+        messages.info(request, "Something went wrong. Please try again.")
+    return HttpResponseRedirect(reverse("listing", args=[album_id]))
+
+    return
 
 
 @login_required
