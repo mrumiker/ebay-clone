@@ -116,6 +116,7 @@ def listing(request, album_id):
     album = Album.objects.get(id=album_id)
     genres = album.genres.all()
     watchers = album.watchers.all()
+    comments = Comment.objects.filter(album=album)
     bids = album.bids.all()
     bid_amounts = []
     for bid in bids:
@@ -132,7 +133,7 @@ def listing(request, album_id):
         "album": album,
         "genres": genres,
         "watchers": watchers,
-        "form": BidForm(),
+        "comments": comments,
         "max_bid": max_bid,
         "max_bidder": max_bidder,
     })
@@ -188,8 +189,6 @@ def comment(request):
     else:
         messages.info(request, "Something went wrong. Please try again.")
     return HttpResponseRedirect(reverse("listing", args=[album_id]))
-
-    return
 
 
 @login_required
