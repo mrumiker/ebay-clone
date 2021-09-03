@@ -192,6 +192,26 @@ def comment(request):
 
 
 @login_required
+def watchlist(request, user_id):
+    user = User.objects.get(id=user_id)
+    albums = Album.objects.all()
+    active_listings = []
+    closed_listings = []
+    for album in albums:
+        watchers = album.watchers.all()
+        if user in watchers:
+            if album.datetime_closed:
+                closed_listings.append(album)
+            else:
+                active_listings.append(album)
+    return render(request, "auctions/watchlist.html", {
+        "active_listings": active_listings,
+        "closed_listings": closed_listings,
+        "watcher": user,
+    })
+
+
+@login_required
 def add_to_watchlist(request, album_id, user_id):
     album = Album.objects.get(id=album_id)
     watcher = User.objects.get(id=user_id)

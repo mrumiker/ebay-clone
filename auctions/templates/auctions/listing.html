@@ -110,16 +110,16 @@
     {% endif %}
   </div>
 </div>
-<div id="comments-container">
+<div id="comments-container" class="my-4">
   <h5>Comments</h5>
   <ul>
     {% for comment in comments %}
-    <li>{{ comment }}</li>
+    <li>{{ comment }} Posted {{ comment.datetime_posted }}</li>
     {% endfor %}
   </ul>
 </div>
 {% if user.is_authenticated %}
-<div id="comment-form-container">
+<div id="comment-form-container" class="my-4">
   <form action="{% url 'comment' %}" method="post">
     {% csrf_token %}
     <input type="hidden" name="album" value="{{ album.id }}">
