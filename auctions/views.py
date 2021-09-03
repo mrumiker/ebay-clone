@@ -229,6 +229,15 @@ def delete_from_watchlist(request, album_id, user_id):
     return HttpResponseRedirect(reverse("listing", args=[album_id]))
 
 
+def genre(request, genre_name):
+    genre = Genre.objects.filter(name=genre_name)
+    albums = genre.albums.all()
+    return render(request, "auctions/genre.html", {
+        "genre": genre,
+        "albums": albums,
+    })
+
+
 def test(request):
     if request.method == 'POST':
         form = AlbumForm(request.POST)
