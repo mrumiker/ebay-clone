@@ -230,11 +230,20 @@ def delete_from_watchlist(request, album_id, user_id):
 
 
 def genre(request, genre_name):
-    genre = Genre.objects.filter(name=genre_name)
-    albums = genre.albums.all()
+    genre = Genre.objects.get(name=genre_name)
+    albums = Album.objects.filter(genres=genre)
+    active_listings = []
+    closed_listings = []
+    for album in albums:
+        if album.datetime_closed:
+            closed_listings.append(album)
+        else:
+            active_listings.append(album)
     return render(request, "auctions/genre.html", {
         "genre": genre,
         "albums": albums,
+        "active_listings": active_listings,
+        "closed_listings": closed_listings,
     })
 
 
