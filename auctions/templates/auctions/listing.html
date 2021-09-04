@@ -25,7 +25,7 @@
     </li>
     {% for genre in genres %}
     <li class="list-group-item list-group-flush px-5" style="background-color: floralwhite;">
-      {{ genre }}
+      <a href="{% url 'genre' genre %}">{{ genre }}</a>
     </li>
     {% endfor %}
   </ul>
@@ -124,7 +124,6 @@
     {% csrf_token %}
     <input type="hidden" name="album" value="{{ album.id }}">
     <input type="hidden" name="commenter" value="{{ user.id }}">
-    <!-- {{ comment_form }} -->
     <label for="comment-text">Comment</label>
     <textarea name="text" id="id_text" cols="49" rows="10" maxlength="1024" required
       placeholder="Type your comment on this listing here"></textarea>
