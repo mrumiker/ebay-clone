@@ -110,7 +110,8 @@
       <input type="hidden" name="user" value="{{ user.id }}">
       <input type="submit" class="btn btn-link card-link p-0" style="vertical-align: middle;" {% if user in watchers %}
         value="Remove from Watchlist" {% else %} value="Add to Watchlist" {% endif %}>
-      {% endif %}
+    </form>
+    {% endif %}
   </div>
 </div>
 <div id="comments-container" class="my-4">
