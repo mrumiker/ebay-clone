@@ -2,18 +2,13 @@
 
 {% block body %}
 <h2>Test</h2>
-<form action="{% url 'create' %}" method="post">
+<form action="{% url 'add_to_watchlist' %}" method="post">
   {% csrf_token %}
-  <label for="albumName">Title </label> {{ form.title }}
-  <label for="artistName">Artist </label> {{ form.artist }}
-  <label for="releaseYear">Year </label> {{ form.year }}<br />
-  <label for="albumDescription">Description: </label> {{ form.description }}
-  <label for="albumCover">Image Url: </label> {{ form.image_url }}<br />
-  <label for="albumGenres">Genres: </label> {{ form.genres }}<br />
-  <label for="albumPrice">Asking price: </label> {{ form.initial_price }}
 
-  <input type="hidden" name="seller" value="{{ user.id }}"><br />
-  <input type="submit" value="Submit">
+  <input type="hidden" name="album" value="{{ album.id }}"><br />
+
+  <input type="hidden" name="user" value="{{ user.id }}"><br />
+  <input type="submit" class="btn btn-link" value="Add to Watchlist">
 </form>
 
 {% endblock %}

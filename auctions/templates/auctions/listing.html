@@ -100,14 +100,17 @@
   </div>
   {% endif %}
   <div class="card-footer">
-    <a href="{% url 'index' %}" class="card-link">Go Back</a>
+    <a href="{% url 'index' %}" class="card-link" style="vertical-align: middle;">Go Back</a>
     {% if user.is_authenticated %}
-    {% if user in watchers %}
-    <a href="{% url 'delete_from_watchlist' user.id album.id %}" class="card-link">Remove from Watchlist</a>
-    {% else %}
-    <a href="{% url 'add_to_watchlist' user.id album.id %}" class="card-link">Add to Watchlist</a>
-    {% endif %}
-    {% endif %}
+
+    <form class="card-link" {% if user in watchers %} action="{% url 'delete_from_watchlist' %}" {% else %}
+      action="{% url 'add_to_watchlist' %}" {% endif %} method="post" style="display: inline-block;">
+      {% csrf_token %}
+      <input type="hidden" name="album" value="{{ album.id }}">
+      <input type="hidden" name="user" value="{{ user.id }}">
+      <input type="submit" class="btn btn-link card-link p-0" style="vertical-align: middle;" {% if user in watchers %}
+        value="Remove from Watchlist" {% else %} value="Add to Watchlist" {% endif %}>
+      {% endif %}
   </div>
 </div>
 <div id="comments-container" class="my-4">

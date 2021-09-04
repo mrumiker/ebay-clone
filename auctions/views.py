@@ -212,7 +212,9 @@ def watchlist(request, user_id):
 
 
 @login_required
-def add_to_watchlist(request, album_id, user_id):
+def add_to_watchlist(request):
+    album_id = request.POST["album"]
+    user_id = request.POST["user"]
     album = Album.objects.get(id=album_id)
     watcher = User.objects.get(id=user_id)
     album.watchers.add(watcher)
@@ -221,7 +223,9 @@ def add_to_watchlist(request, album_id, user_id):
 
 
 @login_required
-def delete_from_watchlist(request, album_id, user_id):
+def delete_from_watchlist(request):
+    album_id = request.POST["album"]
+    user_id = request.POST["user"]
     album = Album.objects.get(id=album_id)
     watcher = User.objects.get(id=user_id)
     album.watchers.remove(watcher)
@@ -248,13 +252,7 @@ def genre(request, genre_name):
 
 
 def test(request):
-    if request.method == 'POST':
-        form = AlbumForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse("index"))
-        raise ValidationError("Something went wrong. Please try again.")
+    album = Album.objects.get(id=1)
     return render(request, "auctions/test.html", {
-        "form": AlbumForm()
+        "album": album
     })
