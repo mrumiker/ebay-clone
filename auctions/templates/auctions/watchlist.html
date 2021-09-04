@@ -3,6 +3,7 @@
 {% block body %}
 
 <h1>{{ watcher }}'s Watchlist</h1>
+{% if active_listings %}
 <h2>Active Listings</h2>
 {% for album in active_listings %}
 <div class="card my-4" style="width: 26rem;">
@@ -33,7 +34,9 @@
   </div>
 </div>
 {% endfor %}
+{% endif %}
 
+{% if closed_listings %}
 <h2>Closed Listings</h2>
 
 {% for album in closed_listings %}
@@ -66,5 +69,9 @@
   </div>
 </div>
 {% endfor %}
+{% endif %}
 
+{% if not active_listings and not closed_listings%}
+<h6>Add some albums to your Watchlist!</h6>
+{% endif %}
 {% endblock %}
