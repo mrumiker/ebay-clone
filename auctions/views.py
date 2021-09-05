@@ -246,8 +246,8 @@ def genre(request, genre_name):
     return render(request, "auctions/genre.html", {
         "genre": genre,
         "albums": albums,
-        "active_listings": active_listings,
-        "closed_listings": closed_listings,
+        "active_listings": reversed(active_listings),
+        "closed_listings": sorted(closed_listings, key=lambda k: k.datetime_closed, reverse=True),
     })
 
 
