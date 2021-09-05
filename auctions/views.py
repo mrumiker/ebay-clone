@@ -42,8 +42,8 @@ def index(request):
         else:
             active_listings.append(album)
     return render(request, "auctions/index.html", {
-        "active_listings": active_listings,
-        "closed_listings": closed_listings,
+        "active_listings": reversed(active_listings),
+        "closed_listings": sorted(closed_listings, key=lambda k: k.datetime_closed, reverse=True),
     })
 
 
