@@ -103,9 +103,13 @@ def register(request):
 def create(request):
     if request.method == 'POST':
         form = AlbumForm(request.POST)
+        title = request.POST["title"]
+        seller = request.POST["seller"]
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse("index"))
+            album_id = Album.objects.get(title=title, seller=seller).id
+            messages.info(request, "Album Listed!")
+            return HttpResponseRedirect(reverse("listing", args=[album_id]))
         raise ValidationError("Something went wrong. Please try again.")
     return render(request, "auctions/create.html", {
         "album_form": AlbumForm(),
