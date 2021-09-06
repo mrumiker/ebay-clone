@@ -31,6 +31,9 @@
             <a class="nav-link" href="{% url 'watchlist' user.id %}">My Watchlist</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{% url 'albums' user.id %}">My Albums</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
         </li>
         {% else %}

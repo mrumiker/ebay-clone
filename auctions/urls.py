@@ -18,5 +18,6 @@ urlpatterns = [
          views.delete_from_watchlist, name="delete_from_watchlist"),
     path("add_to_watchlist",
          views.add_to_watchlist, name="add_to_watchlist"),
+    path("albums/<int:user_id>", views.albums, name="albums"),
     path("genre/<str:genre_name>", views.genre, name="genre"),
 ]

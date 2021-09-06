@@ -34,35 +34,9 @@
       <select name="genres" class="form-control" id="id_genres" multiple>
         {% for genre in genres %}
         <option value="{{ genre.id }}">{{ genre }}</option>
-        <!-- <option value="1">Psychobilly</option>
-
-        <option value="2">Post-punk</option>
-
-        <option value="3">Doo-wop</option>
-
-        <option value="4">Funk</option>
-
-        <option value="5">Pop</option>
-
-        <option value="6">Art Rock</option>
-
-        <option value="7">Garage Punk</option>
-
-        <option value="8">Punk Rock</option>
-
-        <option value="9">Soul</option>
-
-        <option value="10">Hip Hop</option>
-
-        <option value="11">Rock</option>
-
-        <option value="12">Progressive Rock</option>
-
-        <option value="13">Glam Rock</option> -->
         {% endfor %}
       </select>
       <small class="form-text">Hold Command/Control Key to Select Multiple Genres</small>
-
     </div>
   </div>
   <div class="form-group row">

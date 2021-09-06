@@ -24,7 +24,7 @@ class Album(models.Model):
     year = models.CharField(max_length=4)
     description = models.TextField(max_length=1024)
     seller = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="albums_selling")
+        User, on_delete=models.CASCADE, related_name="selling")
     image_url = models.URLField(max_length=200, blank=True)
     genres = models.ManyToManyField(
         Genre, blank=True, related_name="albums", help_text="Hold Command/Control Key to Select Multiple Genres")
