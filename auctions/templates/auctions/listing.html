@@ -100,18 +100,23 @@
   </div>
   {% endif %}
   <div class="card-footer">
-    <a href="{% url 'index' %}" class="card-link" style="vertical-align: middle;">Go Back</a>
-    {% if user.is_authenticated %}
-
-    <form class="card-link" {% if user in watchers %} action="{% url 'delete_from_watchlist' %}" {% else %}
-      action="{% url 'add_to_watchlist' %}" {% endif %} method="post" style="display: inline-block;">
-      {% csrf_token %}
-      <input type="hidden" name="album" value="{{ album.id }}">
-      <input type="hidden" name="user" value="{{ user.id }}">
-      <input type="submit" class="btn btn-link card-link p-0" style="vertical-align: middle;" {% if user in watchers %}
-        value="Remove from Watchlist" {% else %} value="Add to Watchlist" {% endif %}>
-    </form>
-    {% endif %}
+    <div class="form-row justify-content-center align-items-center">
+      <div class="col-3">
+        <a href="{% url 'index' %}" style="vertical-align: middle;">Go Back</a>
+        {% if user.is_authenticated %}
+      </div>
+      <div class="col">
+        <form {% if user in watchers %} action="{% url 'delete_from_watchlist' %}" {% else %}
+          action="{% url 'add_to_watchlist' %}" {% endif %} method="post">
+          {% csrf_token %}
+          <input type="hidden" name="album" value="{{ album.id }}">
+          <input type="hidden" name="user" value="{{ user.id }}">
+          <input type="submit" class="btn btn-link p-0" {%if user in watchers%} value="Remove from Watchlist" {%else%}
+            value="Add to Watchlist" {% endif %}>
+        </form>
+        {% endif %}
+      </div>
+    </div>
   </div>
 </div>
 <div id="comments-container" class="my-4">
