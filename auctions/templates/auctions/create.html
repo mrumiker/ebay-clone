@@ -1,26 +1,80 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-<h2>Create a Listing</h2>
-<form action="{% url 'create' %}" method="post">
-  {% csrf_token %}
-  <div class="form-group">
-    <label for="albumName">Title </label>{{ album_form.title }} <label for="artistName">Artist </label>
-    {{ album_form.artist }}
-    <label for="releaseYear">Year </label>{{ album_form.year }}<br />
-  </div>
-  <div class="form-group">
-    <label for="albumDescription">Description </label>{{ album_form.description }}
-    <label for="albumCover">Image Url </label>{{ album_form.image_url }}
-  </div>
-  <div class="form-group">
-    <label for="albumGenres">Genres </label>{{ album_form.genres }}
-    <small class="form-text text-muted">{{ album_form.genres.help_text }}</small>
-  </div>
-  <div class="form-group">
-    <label for="albumPrice">Asking price </label>{{ album_form.initial_price }}
-  </div>
 
+<form action="{% url 'create' %}" method="post" class="border border-light rounded bg-secondary text-white p-4">
+  <h2 class="mb-4">Create a Listing</h2>
+  <hr class="bg-dark" />
+  {% csrf_token %}
+  <div class="form-group row">
+    <div class="col">
+      <label for="albumName" class="form-text">Title</label>
+      <input type="text" class="form-control" name="title" maxlength="128" required id="id_title"
+        placeholder="Album Title">
+    </div>
+    <div class="col">
+      <label for="artistName" class="form-text">Artist</label>
+      <input type="text" class="form-control" name="artist" maxlength="64" required id="id_artist"
+        placeholder="Artist Name">
+    </div>
+    <div class="col">
+      <label for="releaseYear" class="form-text">Year</label>
+      <input type="text" class="form-control" name="year" maxlength="4" required id="id_year"
+        placeholder="Release Year">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col">
+      <label for="albumDescription" class="form-text">Description</label>
+      <textarea name="description" class="form-control" cols="40" rows="3" maxlength="1024" required id="id_description"
+        placeholder="Album Description"></textarea>
+    </div>
+    <div class="col">
+      <label for="albumGenres" class="form-text">Genres</label>
+      <select name="genres" class="form-control" id="id_genres" multiple>
+        <option value="1">Psychobilly</option>
+
+        <option value="2">Post-punk</option>
+
+        <option value="3">Doo-wop</option>
+
+        <option value="4">Funk</option>
+
+        <option value="5">Pop</option>
+
+        <option value="6">Art Rock</option>
+
+        <option value="7">Garage Punk</option>
+
+        <option value="8">Punk Rock</option>
+
+        <option value="9">Soul</option>
+
+        <option value="10">Hip Hop</option>
+
+        <option value="11">Rock</option>
+
+        <option value="12">Progressive Rock</option>
+
+        <option value="13">Glam Rock</option>
+
+      </select>
+      <small class="form-text">Hold Command/Control Key to Select Multiple Genres</small>
+
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col">
+      <label for="albumCover" class="form-text">Image Url</label><input type="url" class="form-control" name="image_url"
+        maxlength="200" id="id_image_url" placeholder="Enter URL Address of Album Cover Image">
+    </div>
+    <div class="col">
+      <label for="albumPrice" class="form-text">Asking Price ($)</label>
+      <input type="number" name="initial_price_0" value="0" step="0.01" required id="id_initial_price_0"
+        class="form-control" placeholder="Your Asking Price ($)">
+    </div>
+  </div>
+  <input name="initial_price_1" value="USD" type="hidden" id="id_initial_price_1">
   <input type="hidden" name="seller" value="{{ user.id }}"><br />
   <input class="btn btn-primary" type="submit" value="Submit">
 </form>
