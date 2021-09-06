@@ -111,8 +111,9 @@ def create(request):
             messages.info(request, "Album Listed!")
             return HttpResponseRedirect(reverse("listing", args=[album_id]))
         raise ValidationError("Something went wrong. Please try again.")
+    genres = Genre.objects.all()
     return render(request, "auctions/create.html", {
-        "album_form": AlbumForm(),
+        "genres": sorted(genres, key=lambda genre: genre.name)
     })
 
 

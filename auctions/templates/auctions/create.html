@@ -32,7 +32,9 @@
     <div class="col">
       <label for="albumGenres" class="form-text">Genres</label>
       <select name="genres" class="form-control" id="id_genres" multiple>
-        <option value="1">Psychobilly</option>
+        {% for genre in genres %}
+        <option value="{{ genre.id }}">{{ genre }}</option>
+        <!-- <option value="1">Psychobilly</option>
 
         <option value="2">Post-punk</option>
 
@@ -56,8 +58,8 @@
 
         <option value="12">Progressive Rock</option>
 
-        <option value="13">Glam Rock</option>
-
+        <option value="13">Glam Rock</option> -->
+        {% endfor %}
       </select>
       <small class="form-text">Hold Command/Control Key to Select Multiple Genres</small>
 
