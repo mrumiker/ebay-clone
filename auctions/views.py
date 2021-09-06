@@ -241,11 +241,14 @@ def delete_from_watchlist(request):
 def albums(request, user_id):
     user = User.objects.get(id=user_id)
     albums_winning = user.winning.all()
-    albums_won = filter(lambda album: album.datetime_closed, albums_winning)
+    albums_won = list(
+        filter(lambda album: album.datetime_closed, albums_winning))
+    selling = user.selling.all()
     return render(request, "auctions/albums.html", {
         "won": albums_won,
-        "selling": user.selling.all(),
+        "selling": selling,
         "featured_user": user,
+        # "selling_length": len(selling),
     })
 
 
