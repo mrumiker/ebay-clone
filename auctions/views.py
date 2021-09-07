@@ -32,11 +32,16 @@ class CommentForm(ModelForm):
         fields = ['album', 'commenter', 'text']
 
 
+def is_new(time):
+    return (datetime.now(timezone.utc) - time).total_seconds() < 48 * 3600
+
+
 def index(request):
     albums = Album.objects.all()
     active_listings = []
     closed_listings = []
     for album in albums:
+        album.new = is_new(album.datetime_created)
         if album.datetime_closed:
             closed_listings.append(album)
         else:
@@ -141,7 +146,7 @@ def listing(request, album_id):
         "comments": comments,
         "max_bid": max_bid,
         "max_bidder": max_bidder,
-        "new": (datetime.now(timezone.utc) - album.datetime_created).total_seconds() < 48 * 3600,
+        "new": is_new(album.datetime_created)
     })
 
 
@@ -204,6 +209,7 @@ def watchlist(request, user_id):
     active_listings = []
     closed_listings = []
     for album in albums:
+        album.new = is_new(album.datetime_created)
         watchers = album.watchers.all()
         if user in watchers:
             if album.datetime_closed:
@@ -258,6 +264,7 @@ def genre(request, genre_name):
     active_listings = []
     closed_listings = []
     for album in albums:
+        album.new = is_new(album.datetime_created)
         if album.datetime_closed:
             closed_listings.append(album)
         else:

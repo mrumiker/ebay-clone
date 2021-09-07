@@ -10,7 +10,9 @@
 <div class="card my-4" style="width: 26rem;">
   <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
   <div class="card-body">
-    <h4 class="card-title">{{ album.title }}</h4>
+    <h4 class="card-title">{{ album.title }} {% if album.new %}<span
+        class="badge badge-pill badge-danger">New</span>{%endif%}
+    </h4>
     <h5 class="card-subtitle">{{ album.artist }}</h5>
   </div>
   <ul class="list-group list-group-flush">
@@ -48,7 +50,9 @@
 <div class="card my-4" style="width: 26rem;">
   <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
   <div class="card-body">
-    <h4 class="card-title">{{ album.title }}</h4>
+    <h4 class="card-title">{{ album.title }} {% if album.new %}<span
+        class="badge badge-pill badge-danger">New</span>{%endif%}
+    </h4>
     <h5 class="card-subtitle">{{ album.artist }}</h5>
   </div>
   <ul class="list-group list-group-flush">
