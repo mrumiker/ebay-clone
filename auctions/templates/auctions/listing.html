@@ -10,7 +10,7 @@
 </div>
 {% endif %}
 <div class="card" style="width: 26rem;">
-  <div class="card-header"><a href="{% url 'index' %}">⬅️</a></div>
+  <div class="card-header"><a href="{% url 'index' %}" class="card-link">⬅️</a></div>
   <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
   <div class="card-body" style="background-color: linen;">
     <h4 class="card-title">{{ album.title }}</h4>
@@ -100,7 +100,7 @@
   </div>
   {% endif %}
   <div class="card-footer">
-    <div class="form-row justify-content-center align-items-center">
+    <div class="form-row align-items-center">
       <div class="col-3">
         <a href="{% url 'index' %}" style="vertical-align: middle;">Go Back</a>
         {% if user.is_authenticated %}
