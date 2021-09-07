@@ -13,7 +13,8 @@
   <div class="card-header"><a href="{% url 'index' %}" class="card-link">⬅️</a></div>
   <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
   <div class="card-body" style="background-color: linen;">
-    <h4 class="card-title">{{ album.title }}</h4>
+    <h4 class="card-title">{{ album.title }} {% if new %}<span class="badge badge-pill badge-danger">New</span>{%endif%}
+    </h4>
     <h5 class="card-subtitle mb-2">{{ album.artist }}</h5>
     <h6 class="card-text">{{ album.year }}</h6>
     <p class="card-text">{{ album.description }}</p>

@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.forms import ModelForm
 from django.contrib import messages
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from .models import Album, Bid, Comment, User, Genre
 
@@ -141,6 +141,7 @@ def listing(request, album_id):
         "comments": comments,
         "max_bid": max_bid,
         "max_bidder": max_bidder,
+        "new": (datetime.now(timezone.utc) - album.datetime_created).total_seconds() < 48 * 3600,
     })
 
 
