@@ -4,7 +4,7 @@
 <h2>Active Listings</h2>
 <div class="d-flex flex-wrap">
     {% for album in active_listings %}
-    <div class="card m-4" style="width: 26rem;">
+    <div class="card m-4">
         <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
         <div class="card-body">
             <h4 class="card-title">{{ album.title }} {% if album.new %}<span
@@ -44,7 +44,7 @@
 <h2>Closed Listings</h2>
 <div class="d-flex flex-wrap">
     {% for album in closed_listings %}
-    <div class="card m-4" style="width: 26rem;">
+    <div class="card m-4">
         <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
         <div class="card-body">
             <h4 class="card-title">{{ album.title }}</h4>
@@ -54,8 +54,8 @@
             {% if album.top_bid %}
             {% if user.id == album.top_bidder.id %}
             <li class="list-group-item" style="background-color: honeydew;"><b>SOLD TO <a
-                        href="{% url 'albums' user.id %}" class="card-link text-danger">YOU</a></b> for {{ album.top_bid
-                }}!</li>
+                        href="{% url 'albums' user.id %}" class="card-link text-danger">YOU</a></b> for
+                {{album.top_bid}}!</li>
             {% else %}
             <li class="list-group-item"><b>SOLD</b> to <a href="{% url 'albums' album.top_bidder.id %}"
                     class="card-link">{{album.top_bidder}}</a> for {{ album.top_bid }}</li>

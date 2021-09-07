@@ -2,15 +2,24 @@ body {
     padding: 10px;
 }
 
-.form-group input {
-    margin: 10px;
+.d-flex {
+    justify-content: center;
 }
 
-.form-group select {
-    margin: 0 10px;
+.card {
+    min-width: 100%;
 }
 
-.album-container {
-    border: 1px solid black;
-    padding: 5px;
+
+
+@media (min-width: 769px) {
+    
+    .d-flex {
+        justify-content: start;
+    }
+
+    .card {
+        min-width: inherit;
+        width: 26rem;
+    }
 }
