@@ -45,7 +45,8 @@
     {% endif %}
     {% elif max_bidder == user %}
     <li class="list-group-item" style="background-color: oldlace;">
-      <b>SOLD TO <a href="{% url 'albums' user.id %}" class="card-link">YOU</a></b> on {{ album.datetime_closed }} for
+      <b>SOLD TO <a href="{% url 'albums' user.id %}" class="card-link text-danger">YOU</a></b> on
+      {{album.datetime_closed}} for
       ${{ max_bid }}!
     </li>
     {% else %}

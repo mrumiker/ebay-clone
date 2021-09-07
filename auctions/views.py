@@ -248,7 +248,6 @@ def albums(request, user_id):
         "won": albums_won,
         "selling": selling,
         "featured_user": user,
-        # "selling_length": len(selling),
     })
 
 
@@ -265,7 +264,7 @@ def genre(request, genre_name):
     return render(request, "auctions/genre.html", {
         "genre": genre,
         "albums": albums,
-        "active_listings": reversed(active_listings),
+        "active_listings": list(reversed(active_listings)),
         "closed_listings": sorted(closed_listings, key=lambda k: k.datetime_closed, reverse=True),
     })
 

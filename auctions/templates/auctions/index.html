@@ -51,7 +51,7 @@
         {% if album.top_bid %}
         {% if user.id == album.top_bidder.id %}
         <li class="list-group-item" style="background-color: honeydew;"><b>SOLD TO <a href="{% url 'albums' user.id %}"
-                    class="card-link">YOU</a></b> for {{ album.top_bid }}!</li>
+                    class="card-link text-danger">YOU</a></b> for {{ album.top_bid }}!</li>
         {% else %}
         <li class="list-group-item"><b>SOLD</b> to <a href="{% url 'albums' album.top_bidder.id %}"
                 class="card-link">{{album.top_bidder}}</a> for {{ album.top_bid }}</li>
