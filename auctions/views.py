@@ -251,9 +251,13 @@ def albums(request, user_id):
     albums_won = list(
         filter(lambda album: album.datetime_closed, albums_winning))
     selling = user.selling.all()
+    for album in albums_won:
+        album.new = is_new(album.datetime_created)
+    for album in selling:
+        album.new = is_new(album.datetime_created)
     return render(request, "auctions/albums.html", {
         "won": albums_won,
-        "selling": selling,
+        "selling": reversed(selling),
         "featured_user": user,
     })
 
