@@ -2,81 +2,85 @@
 
 {% block body %}
 <h2>Active Listings</h2>
-
-{% for album in active_listings %}
-<div class="card my-4" style="width: 26rem;">
-    <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
-    <div class="card-body">
-        <h4 class="card-title">{{ album.title }} {% if album.new %}<span
-                class="badge badge-pill badge-danger">New</span>{%endif%}
-        </h4>
-        <h5 class="card-subtitle">{{ album.artist }}</h5>
+<div class="d-flex flex-wrap">
+    {% for album in active_listings %}
+    <div class="card m-4" style="width: 26rem;">
+        <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
+        <div class="card-body">
+            <h4 class="card-title">{{ album.title }} {% if album.new %}<span
+                    class="badge badge-pill badge-danger">New</span>{%endif%}
+            </h4>
+            <h5 class="card-subtitle">{{ album.artist }}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% if album.top_bid %}
+            {% if user.id == album.top_bidder.id %}
+            <li class="list-group-item" style="background-color: honeydew;">Current bid is <b>{{ album.top_bid }}</b> by
+                <a href="{% url 'albums' user.id %}" class="card-link">you</a>
+            </li>
+            {% else %}
+            <li class="list-group-item">Current bid is <b>{{ album.top_bid }}</b> by <a
+                    href="{% url 'albums' album.top_bidder.id %}" class="card-link">{{album.top_bidder}}</a></li>
+            {% endif %}
+            {% else %}
+            <li class="list-group-item">Current bid is <b>{{ album.initial_price }}</b></li>
+            {% endif %}
+            {% if user.id == album.seller.id %}
+            <li class="list-group-item text-muted">Offered by <a href="{% url 'albums' user.id %}"
+                    class="card-link">you</a>
+                on
+                {{album.datetime_created}}</li>
+            {% else %}
+            <li class="list-group-item text-muted">Offered by <a href="{% url 'albums' album.seller.id %}"
+                    class="card-link">{{album.seller}}</a> on {{ album.datetime_created }}</li>
+            {% endif %}
+        </ul>
+        <div class="card-body">
+            <a href="{% url 'listing' album.id %}" class="card-link">Go to Listing</a>
+        </div>
     </div>
-    <ul class="list-group list-group-flush">
-        {% if album.top_bid %}
-        {% if user.id == album.top_bidder.id %}
-        <li class="list-group-item" style="background-color: honeydew;">Current bid is <b>{{ album.top_bid }}</b> by <a
-                href="{% url 'albums' user.id %}" class="card-link">you</a>
-        </li>
-        {% else %}
-        <li class="list-group-item">Current bid is <b>{{ album.top_bid }}</b> by <a
-                href="{% url 'albums' album.top_bidder.id %}" class="card-link">{{album.top_bidder}}</a></li>
-        {% endif %}
-        {% else %}
-        <li class="list-group-item">Current bid is <b>{{ album.initial_price }}</b></li>
-        {% endif %}
-        {% if user.id == album.seller.id %}
-        <li class="list-group-item text-muted">Offered by <a href="{% url 'albums' user.id %}" class="card-link">you</a>
-            on
-            {{album.datetime_created}}</li>
-        {% else %}
-        <li class="list-group-item text-muted">Offered by <a href="{% url 'albums' album.seller.id %}"
-                class="card-link">{{album.seller}}</a> on {{ album.datetime_created }}</li>
-        {% endif %}
-    </ul>
-    <div class="card-body">
-        <a href="{% url 'listing' album.id %}" class="card-link">Go to Listing</a>
-    </div>
+    {% endfor %}
 </div>
-{% endfor %}
-
 <h2>Closed Listings</h2>
-
-{% for album in closed_listings %}
-<div class="card my-4" style="width: 26rem;">
-    <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
-    <div class="card-body">
-        <h4 class="card-title">{{ album.title }}</h4>
-        <h5 class="card-subtitle">{{ album.artist }}</h5>
+<div class="d-flex flex-wrap">
+    {% for album in closed_listings %}
+    <div class="card m-4" style="width: 26rem;">
+        <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
+        <div class="card-body">
+            <h4 class="card-title">{{ album.title }}</h4>
+            <h5 class="card-subtitle">{{ album.artist }}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% if album.top_bid %}
+            {% if user.id == album.top_bidder.id %}
+            <li class="list-group-item" style="background-color: honeydew;"><b>SOLD TO <a
+                        href="{% url 'albums' user.id %}" class="card-link text-danger">YOU</a></b> for {{ album.top_bid
+                }}!</li>
+            {% else %}
+            <li class="list-group-item"><b>SOLD</b> to <a href="{% url 'albums' album.top_bidder.id %}"
+                    class="card-link">{{album.top_bidder}}</a> for {{ album.top_bid }}</li>
+            {% endif %}
+            {% elif user == album.seller %}
+            <li class="list-group-item">Withdrawn by <a href="{% url 'albums' user.id %}" class="card-link">you</a> on
+                {{album.datetime_closed}}</li>
+            {% else %}
+            <li class="list-group-item">Withdrawn by <a href="{% url 'albums' album.seller.id %}"
+                    class="card-link">{{album.seller}}</a> on {{album.datetime_closed}}</li>
+            {% endif %}
+            {% if user.id == album.seller.id %}
+            <li class="list-group-item text-muted">Offered by <a href="{% url 'albums' user.id %}"
+                    class="card-link">you</a>
+                on {{ album.datetime_created }}</li>
+            {% else %}
+            <li class="list-group-item text-muted">Offered by <a href="{% url 'albums' album.seller.id %}"
+                    class="card-link">{{album.seller}}</a> on {{ album.datetime_created }}</li>
+            {% endif %}
+        </ul>
+        <div class="card-body">
+            <a href="{% url 'listing' album.id %}" class="card-link">Go to Listing</a>
+        </div>
     </div>
-    <ul class="list-group list-group-flush">
-        {% if album.top_bid %}
-        {% if user.id == album.top_bidder.id %}
-        <li class="list-group-item" style="background-color: honeydew;"><b>SOLD TO <a href="{% url 'albums' user.id %}"
-                    class="card-link text-danger">YOU</a></b> for {{ album.top_bid }}!</li>
-        {% else %}
-        <li class="list-group-item"><b>SOLD</b> to <a href="{% url 'albums' album.top_bidder.id %}"
-                class="card-link">{{album.top_bidder}}</a> for {{ album.top_bid }}</li>
-        {% endif %}
-        {% elif user == album.seller %}
-        <li class="list-group-item">Withdrawn by <a href="{% url 'albums' user.id %}" class="card-link">you</a> on
-            {{album.datetime_closed}}</li>
-        {% else %}
-        <li class="list-group-item">Withdrawn by <a href="{% url 'albums' album.seller.id %}"
-                class="card-link">{{album.seller}}</a> on {{album.datetime_closed}}</li>
-        {% endif %}
-        {% if user.id == album.seller.id %}
-        <li class="list-group-item text-muted">Offered by <a href="{% url 'albums' user.id %}" class="card-link">you</a>
-            on {{ album.datetime_created }}</li>
-        {% else %}
-        <li class="list-group-item text-muted">Offered by <a href="{% url 'albums' album.seller.id %}"
-                class="card-link">{{album.seller}}</a> on {{ album.datetime_created }}</li>
-        {% endif %}
-    </ul>
-    <div class="card-body">
-        <a href="{% url 'listing' album.id %}" class="card-link">Go to Listing</a>
-    </div>
+    {% endfor %}
 </div>
-{% endfor %}
 
 {% endblock %}

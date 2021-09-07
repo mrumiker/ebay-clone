@@ -146,7 +146,7 @@ def listing(request, album_id):
         "comments": comments,
         "max_bid": max_bid,
         "max_bidder": max_bidder,
-        "new": is_new(album.datetime_created)
+        "new": is_new(album.datetime_created),
     })
 
 
