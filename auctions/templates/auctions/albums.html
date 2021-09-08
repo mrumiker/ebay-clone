@@ -3,6 +3,7 @@
 {% block body %}
 
 <h1>{{ featured_user }}'s Albums</h1>
+<hr class="bg-light" />
 {% if won %}
 <h2>Albums Won by {{ featured_user }}</h2>
 <div class="d-flex flex-wrap">
@@ -95,6 +96,6 @@
 {% endif %}
 
 {% if not won and not selling%}
-<h6>Nothing here yet!</h6>
+<h3>Nothing here yet!</h3>
 {% endif %}
 {% endblock %}

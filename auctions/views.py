@@ -257,7 +257,7 @@ def albums(request, user_id):
         album.new = is_new(album.datetime_created)
     return render(request, "auctions/albums.html", {
         "won": albums_won,
-        "selling": reversed(selling),
+        "selling": list(reversed(selling)),
         "featured_user": user,
     })
 
