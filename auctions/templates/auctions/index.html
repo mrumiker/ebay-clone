@@ -21,9 +21,9 @@
                 <ul class="list-group list-group-flush">
                     {% if album.top_bid %}
                     {% if user.id == album.top_bidder.id %}
-                    <li class="list-group-item bg-dark text-white">Current bid is
+                    <li class="list-group-item bg-dark text-light">Current bid is
                         <b>{{album.top_bid}}</b> by
-                        <a href="{% url 'albums' user.id %}" class="card-link text-success">you</a>
+                        <a href="{% url 'albums' user.id %}" class="card-link text-success"><b>YOU</b></a>
                     </li>
                     {% else %}
                     <li class="list-group-item bg-secondary text-white">Current bid is <b>{{ album.top_bid }}</b> by <a
@@ -65,8 +65,8 @@
                 <ul class="list-group list-group-flush">
                     {% if album.top_bid %}
                     {% if user.id == album.top_bidder.id %}
-                    <li class="list-group-item bg-warning text-dark" style="background-color: honeydew;"><b>SOLD TO <a
-                                href="{% url 'albums' user.id %}" class="card-link text-danger">YOU</a></b> for
+                    <li class="list-group-item bg-warning text-dark"><b>SOLD TO <a href="{% url 'albums' user.id %}"
+                                class="card-link text-danger">YOU</a></b> for
                         {{album.top_bid}}!</li>
                     {% else %}
                     <li class="list-group-item bg-warning text-dark"><b>SOLD</b> to <a
