@@ -77,8 +77,7 @@
           {% else %}
           <li class="list-group-item bg-warning text-dark"><b>SOLD</b> to <a
               href="{% url 'albums' album.top_bidder.id %}" class="card-link text-danger">{{album.top_bidder}}</a>
-            for
-            {{album.top_bid}}</li>
+            for {{album.top_bid}}</li>
           {% endif %}
           {% elif user == album.seller %}
           <li class="list-group-item bg-danger text-light">Withdrawn by <a href="{% url 'albums' user.id %}"
