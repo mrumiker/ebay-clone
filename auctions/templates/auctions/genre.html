@@ -1,5 +1,7 @@
 {% extends "auctions/layout.html" %}
 
+{% block title %}{{genre}}{%endblock%}
+
 {% block body %}
 <h1>{{ genre }}</h1>
 <p>{{ genre.description }}</p>
