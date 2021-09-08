@@ -22,4 +22,14 @@ body {
         min-width: inherit;
         width: 26rem;
     }
+
+    #listing-card {
+        width: 100%;
+    }
+
+    #listing-cover {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
 }

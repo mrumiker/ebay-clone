@@ -10,118 +10,132 @@
   {% endfor %}
 </div>
 {% endif %}
-<div class="card bg-secondary">
-  <div class="card-header"><a href="{% url 'index' %}" class="card-link">⬅️</a></div>
-  <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
-  <div class="card-body bg-secondary">
-    <h4 class="card-title">{{ album.title }} {% if new %}<span class="badge badge-pill badge-danger">New</span>{%endif%}
-    </h4>
-    <h5 class="card-subtitle mb-2">{{ album.artist }}</h5>
-    <h6 class="card-text">{{ album.year }}</h6>
-    <p class="card-text">{{ album.description }}</p>
-  </div>
+<div class="card bg-secondary" id="listing-card">
+  <div class="row no-gutters">
+    <div class="col-md-1">
+      <div class="card-header bg-secondary"><a href="{% url 'index' %}" class="card-link">⬅️</a></div>
+    </div>
+    <div class="col-md-5">
+      <img src="{{ album.image_url }}" class="card-img-top" id="listing-cover" alt="cover of {{ album }}">
+    </div>
+    <div class="col-md-6 d-flex flex-column justify-content-between">
+      <div class="card-body bg-secondary">
+        <h4 class="card-title">{{ album.title }} {% if new %}<span
+            class="badge badge-pill badge-danger">New</span>{%endif%}
+        </h4>
+        <h5 class="card-subtitle mb-2">{{ album.artist }}</h5>
+        <h6 class="card-text">{{ album.year }}</h6>
+        <p class="card-text">{{ album.description }}</p>
+      </div>
 
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item bg-secondary">
-      <h6 class="mb-0">Genres</h6>
-    </li>
-    {% for genre in genres %}
-    <li class="list-group-item list-group-flush bg-secondary px-5">
-      <a href="{% url 'genre' genre %}" class="card-link text-warning">{{ genre }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-  <div class="card-body"></div>
-  <ul class="list-group list-group-flush">
-    {% if album.datetime_closed %}
-    {% if max_bidder == album.seller %}
-    {% if user == album.seller %}
-    <li class="list-group-item bg-secondary" style="background-color: oldlace;">
-      Listing withdrawn by <a href="{% url 'albums' user.id %}" class="card-link">you</a> on {{ album.datetime_closed }}
-    </li>
-    {% else %}
-    <li class="list-group-item bg-secondary" style="background-color: oldlace;">
-      Listing withdrawn by <a href="{% url 'albums' album.seller.id %}" class="card-link">{{album.seller}}</a> on {{
-      album.datetime_closed }}
-    </li>
-    {% endif %}
-    {% elif max_bidder == user %}
-    <li class="list-group-item bg-secondary" style="background-color: oldlace;">
-      <b>SOLD TO <a href="{% url 'albums' user.id %}" class="card-link text-danger">YOU</a></b> on
-      {{album.datetime_closed}} for
-      ${{ max_bid }}!
-    </li>
-    {% else %}
-    <li class="list-group-item bg-secondary">
-      <b>SOLD</b> to <a href="{% url 'albums' max_bidder.id %}" class="card-link text-white-50">{{ max_bidder }}</a> on
-      {{album.datetime_closed}} for ${{ max_bid }}
-    </li>
-    {% endif %}
-    {% elif user.id == max_bidder.id %}
-    <li class="list-group-item bg-secondary" style="background-color: oldlace;">
-      Current bid is <b>${{ max_bid }}</b> by <a href="{% url 'albums' user.id %}"
-        class="card-link text-white-50">you</a>
-    </li>
-    {% else %}
-    <li class="list-group-item bg-secondary" style="background-color: oldlace;">
-      Current bid is <b>${{ max_bid }}</b> by <a href="{% url 'albums' max_bidder.id %}"
-        class="card-link text-white-50">{{max_bidder}}</a>
-    </li>
-    {% endif %}
-    {% if user.id == album.seller.id %}
-    <li class="list-group-item bg-secondary" style="background-color: oldlace;">Offered by <a
-        href="{% url 'albums' user.id %}" class="card-link text-white-50">you</a> on
-      {{ album.datetime_created }}
-    </li>
-    {% else %}
-    <li class="list-group-item bg-secondary" style="background-color: oldlace;">
-      Offered by <a href="{% url 'albums' album.seller.id %}" class="card-link text-white-50">{{album.seller}}</a> on
-      {{album.datetime_created}}
-    </li>
-    {% endif %}
-  </ul>
-  {% if user.is_authenticated %}
-  <div class="card-body text-center">
-    {% if album.datetime_closed %}
-    <button type="button" class="btn btn-secondary w-100" disabled>NOT FOR SALE</button>
-    {% elif user.id == album.seller.id %}
-    <form action="{% url 'close' %}" method="post">
-      {% csrf_token %}
-      <input type="hidden" name="album" value="{{ album.id }}">
-      <input type="submit" class="btn btn-danger w-100" value="CLOSE THIS LISTING">
-    </form>
-    {% else %}
-    <form action="{% url 'bid' %}" method="post">
-      {% csrf_token %}
-      <div class="form-row align-items-center justify-content-center">
-        <div class="col-auto">
-          💲<input type="number" name="amount_0" min="{{ max_bid }}" step="0.01" required id="id_amount_0"
-            placeholder="Enter a Bid">
-          <input type="hidden" name="amount_1" value="USD" id="id_amount_1">
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item bg-secondary">
+          <h6 class="mb-0">Genres</h6>
+        </li>
+        {% for genre in genres %}
+        <li class="list-group-item list-group-flush bg-secondary px-5">
+          <a href="{% url 'genre' genre %}" class="card-link text-warning">{{ genre }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="card-body"></div>
+      <ul class="list-group list-group-flush">
+        {% if album.datetime_closed %}
+        {% if max_bidder == album.seller %}
+        {% if user == album.seller %}
+        <li class="list-group-item bg-secondary">
+          Listing withdrawn by <a href="{% url 'albums' user.id %}" class="card-link text-white-50">you</a> on
+          {{album.datetime_closed}}
+        </li>
+        {% else %}
+        <li class="list-group-item bg-secondary">
+          Listing withdrawn by <a href="{% url 'albums' album.seller.id %}"
+            class="card-link text-white-50">{{album.seller}}</a> on
+          {{album.datetime_closed}}
+        </li>
+        {% endif %}
+        {% elif max_bidder == user %}
+        <li class="list-group-item bg-secondary">
+          <b>SOLD TO <a href="{% url 'albums' user.id %}" class="card-link text-danger">YOU</a></b> on
+          {{album.datetime_closed}} for
+          ${{ max_bid }}!
+        </li>
+        {% else %}
+        <li class="list-group-item bg-secondary">
+          <b>SOLD</b> to <a href="{% url 'albums' max_bidder.id %}" class="card-link text-white-50">{{ max_bidder }}</a>
+          on
+          {{album.datetime_closed}} for ${{ max_bid }}
+        </li>
+        {% endif %}
+        {% elif user.id == max_bidder.id %}
+        <li class="list-group-item bg-secondary" style="background-color: oldlace;">
+          Current bid is <b>${{ max_bid }}</b> by <a href="{% url 'albums' user.id %}"
+            class="card-link text-white-50">you</a>
+        </li>
+        {% else %}
+        <li class="list-group-item bg-secondary" style="background-color: oldlace;">
+          Current bid is <b>${{ max_bid }}</b> by <a href="{% url 'albums' max_bidder.id %}"
+            class="card-link text-white-50">{{max_bidder}}</a>
+        </li>
+        {% endif %}
+        {% if user.id == album.seller.id %}
+        <li class="list-group-item bg-secondary" style="background-color: oldlace;">Offered by <a
+            href="{% url 'albums' user.id %}" class="card-link text-white-50">you</a> on
+          {{ album.datetime_created }}
+        </li>
+        {% else %}
+        <li class="list-group-item bg-secondary" style="background-color: oldlace;">
+          Offered by <a href="{% url 'albums' album.seller.id %}" class="card-link text-white-50">{{album.seller}}</a>
+          on
+          {{album.datetime_created}}
+        </li>
+        {% endif %}
+      </ul>
+      {% if user.is_authenticated %}
+      <div class="card-body text-center">
+        {% if album.datetime_closed %}
+        <button type="button" class="btn btn-secondary w-100" disabled>NOT FOR SALE</button>
+        {% elif user.id == album.seller.id %}
+        <form action="{% url 'close' %}" method="post">
+          {% csrf_token %}
           <input type="hidden" name="album" value="{{ album.id }}">
-          <input type="hidden" name="bidder" value="{{ user.id }}">
-        </div>
-        <div class="col-auto">
-          <input class="btn btn-primary w-100 px-4" type="submit" value="BID">
+          <input type="submit" class="btn btn-danger w-100" value="CLOSE THIS LISTING">
+        </form>
+        {% else %}
+        <form action="{% url 'bid' %}" method="post">
+          {% csrf_token %}
+          <div class="form-row align-items-center justify-content-center">
+            <div class="col-auto">
+              💲<input type="number" name="amount_0" min="{{ max_bid }}" step="0.01" required id="id_amount_0"
+                placeholder="Enter a Bid">
+              <input type="hidden" name="amount_1" value="USD" id="id_amount_1">
+              <input type="hidden" name="album" value="{{ album.id }}">
+              <input type="hidden" name="bidder" value="{{ user.id }}">
+            </div>
+            <div class="col-auto">
+              <input class="btn btn-primary w-100 px-4" type="submit" value="BID">
+            </div>
+          </div>
+        </form>
+        {% endif %}
+      </div>
+      {% endif %}
+      <div class="card-footer">
+        <div class="form-row align-items-center justify-content-between">
+          <a href="{% url 'index' %}" class="btn btn-outline-light">Go Back</a>
+          {% if user.is_authenticated %}
+          <form {% if user in watchers %} action="{% url 'delete_from_watchlist' %}" {% else %}
+            action="{% url 'add_to_watchlist' %}" {% endif %} method="post">
+            {% csrf_token %}
+            <input type="hidden" name="album" value="{{ album.id }}">
+            <input type="hidden" name="user" value="{{ user.id }}">
+            <input type="submit" class="btn btn-outline-light" {%if user in watchers%} value="Remove from Watchlist"
+              {%else%} value="Add to Watchlist" {% endif %}>
+          </form>
+          {% endif %}
         </div>
       </div>
-    </form>
-    {% endif %}
-  </div>
-  {% endif %}
-  <div class="card-footer">
-    <div class="form-row align-items-center justify-content-between">
-      <a href="{% url 'index' %}" class="btn btn-outline-light">Go Back</a>
-      {% if user.is_authenticated %}
-      <form {% if user in watchers %} action="{% url 'delete_from_watchlist' %}" {% else %}
-        action="{% url 'add_to_watchlist' %}" {% endif %} method="post">
-        {% csrf_token %}
-        <input type="hidden" name="album" value="{{ album.id }}">
-        <input type="hidden" name="user" value="{{ user.id }}">
-        <input type="submit" class="btn btn-outline-light" {%if user in watchers%} value="Remove from Watchlist"
-          {%else%} value="Add to Watchlist" {% endif %}>
-      </form>
-      {% endif %}
     </div>
   </div>
 </div>
