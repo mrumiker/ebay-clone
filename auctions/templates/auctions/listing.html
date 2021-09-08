@@ -10,10 +10,10 @@
   {% endfor %}
 </div>
 {% endif %}
-<div class="card" style="width: 26rem;">
+<div class="card bg-secondary">
   <div class="card-header"><a href="{% url 'index' %}" class="card-link">⬅️</a></div>
   <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
-  <div class="card-body" style="background-color: linen;">
+  <div class="card-body bg-secondary">
     <h4 class="card-title">{{ album.title }} {% if new %}<span class="badge badge-pill badge-danger">New</span>{%endif%}
     </h4>
     <h5 class="card-subtitle mb-2">{{ album.artist }}</h5>
@@ -22,59 +22,60 @@
   </div>
 
   <ul class="list-group list-group-flush">
-    <li class="list-group-item" style="background-color: floralwhite;">
+    <li class="list-group-item bg-secondary">
       <h6 class="mb-0">Genres</h6>
     </li>
     {% for genre in genres %}
-    <li class="list-group-item list-group-flush px-5" style="background-color: floralwhite;">
-      <a href="{% url 'genre' genre %}">{{ genre }}</a>
+    <li class="list-group-item list-group-flush bg-secondary px-5">
+      <a href="{% url 'genre' genre %}" class="card-link text-warning">{{ genre }}</a>
     </li>
     {% endfor %}
   </ul>
-  <div class="card-body" style="background-color: oldlace;"></div>
+  <div class="card-body"></div>
   <ul class="list-group list-group-flush">
     {% if album.datetime_closed %}
     {% if max_bidder == album.seller %}
     {% if user == album.seller %}
-    <li class="list-group-item" style="background-color: oldlace;">
+    <li class="list-group-item bg-secondary" style="background-color: oldlace;">
       Listing withdrawn by <a href="{% url 'albums' user.id %}" class="card-link">you</a> on {{ album.datetime_closed }}
     </li>
     {% else %}
-    <li class="list-group-item" style="background-color: oldlace;">
+    <li class="list-group-item bg-secondary" style="background-color: oldlace;">
       Listing withdrawn by <a href="{% url 'albums' album.seller.id %}" class="card-link">{{album.seller}}</a> on {{
       album.datetime_closed }}
     </li>
     {% endif %}
     {% elif max_bidder == user %}
-    <li class="list-group-item" style="background-color: oldlace;">
+    <li class="list-group-item bg-secondary" style="background-color: oldlace;">
       <b>SOLD TO <a href="{% url 'albums' user.id %}" class="card-link text-danger">YOU</a></b> on
       {{album.datetime_closed}} for
       ${{ max_bid }}!
     </li>
     {% else %}
-    <li class="list-group-item" style="background-color: oldlace;">
-      <b>SOLD</b> to <a href="{% url 'albums' max_bidder.id %}" class="card-link">{{ max_bidder }}</a> on
+    <li class="list-group-item bg-secondary">
+      <b>SOLD</b> to <a href="{% url 'albums' max_bidder.id %}" class="card-link text-white-50">{{ max_bidder }}</a> on
       {{album.datetime_closed}} for ${{ max_bid }}
     </li>
     {% endif %}
     {% elif user.id == max_bidder.id %}
-    <li class="list-group-item" style="background-color: oldlace;">
-      Current bid is <b>${{ max_bid }}</b> by <a href="{% url 'albums' user.id %}" class="card-link">you</a>
+    <li class="list-group-item bg-secondary" style="background-color: oldlace;">
+      Current bid is <b>${{ max_bid }}</b> by <a href="{% url 'albums' user.id %}"
+        class="card-link text-white-50">you</a>
     </li>
     {% else %}
-    <li class="list-group-item" style="background-color: oldlace;">
+    <li class="list-group-item bg-secondary" style="background-color: oldlace;">
       Current bid is <b>${{ max_bid }}</b> by <a href="{% url 'albums' max_bidder.id %}"
-        class="card-link">{{max_bidder}}</a>
+        class="card-link text-white-50">{{max_bidder}}</a>
     </li>
     {% endif %}
     {% if user.id == album.seller.id %}
-    <li class="list-group-item text-muted" style="background-color: oldlace;">Offered by <a
-        href="{% url 'albums' user.id %}" class="card-link">you</a> on
+    <li class="list-group-item bg-secondary" style="background-color: oldlace;">Offered by <a
+        href="{% url 'albums' user.id %}" class="card-link text-white-50">you</a> on
       {{ album.datetime_created }}
     </li>
     {% else %}
-    <li class="list-group-item text-muted" style="background-color: oldlace;">
-      Offered by <a href="{% url 'albums' album.seller.id %}" class="card-link">{{album.seller}}</a> on
+    <li class="list-group-item bg-secondary" style="background-color: oldlace;">
+      Offered by <a href="{% url 'albums' album.seller.id %}" class="card-link text-white-50">{{album.seller}}</a> on
       {{album.datetime_created}}
     </li>
     {% endif %}
@@ -109,22 +110,18 @@
   </div>
   {% endif %}
   <div class="card-footer">
-    <div class="form-row align-items-center">
-      <div class="col-3">
-        <a href="{% url 'index' %}" style="vertical-align: middle;">Go Back</a>
-        {% if user.is_authenticated %}
-      </div>
-      <div class="col">
-        <form {% if user in watchers %} action="{% url 'delete_from_watchlist' %}" {% else %}
-          action="{% url 'add_to_watchlist' %}" {% endif %} method="post">
-          {% csrf_token %}
-          <input type="hidden" name="album" value="{{ album.id }}">
-          <input type="hidden" name="user" value="{{ user.id }}">
-          <input type="submit" class="btn btn-link p-0" {%if user in watchers%} value="Remove from Watchlist" {%else%}
-            value="Add to Watchlist" {% endif %}>
-        </form>
-        {% endif %}
-      </div>
+    <div class="form-row align-items-center justify-content-between">
+      <a href="{% url 'index' %}" class="btn btn-outline-light">Go Back</a>
+      {% if user.is_authenticated %}
+      <form {% if user in watchers %} action="{% url 'delete_from_watchlist' %}" {% else %}
+        action="{% url 'add_to_watchlist' %}" {% endif %} method="post">
+        {% csrf_token %}
+        <input type="hidden" name="album" value="{{ album.id }}">
+        <input type="hidden" name="user" value="{{ user.id }}">
+        <input type="submit" class="btn btn-outline-light" {%if user in watchers%} value="Remove from Watchlist"
+          {%else%} value="Add to Watchlist" {% endif %}>
+      </form>
+      {% endif %}
     </div>
   </div>
 </div>
