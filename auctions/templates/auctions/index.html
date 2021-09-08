@@ -26,7 +26,7 @@
                         <a href="{% url 'albums' user.id %}" class="card-link text-success"><b>YOU</b></a>
                     </li>
                     {% else %}
-                    <li class="list-group-item bg-secondary text-white">Current bid is <b>{{ album.top_bid }}</b> by <a
+                    <li class="list-group-item bg-secondary text-light">Current bid is <b>{{ album.top_bid }}</b> by <a
                             href="{% url 'albums' album.top_bidder.id %}"
                             class="card-link text-white-50">{{album.top_bidder}}</a></li>
                     {% endif %}
