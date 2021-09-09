@@ -27,11 +27,12 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto" style="font-size: large;">
+
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'index' %}">Listings</a>
                 </li>
-                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'create' %}">Post a Listing</a>
                 </li>
@@ -41,31 +42,37 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'albums' user.id %}">My Albums</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
-                </li>
                 {% endif %}
             </ul>
 
 
             <div>
                 {% if user.is_authenticated %}
-                Signed in as <strong>{{ user.username }}</strong>.
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="btn btn-warning" href="{% url 'logout' %}">Log Out {{user.username}}</a>
+                    </li>
+                </ul>
                 {% else %}
-                Not signed in.
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="btn btn-warning" href="{% url 'login' %}">Log In</a>
+                    </li>
+                </ul>
                 {% endif %}
             </div>
         </div>
     </nav>
     <!-- <hr class="bg-light" /> -->
     <div style="padding: 10px;">
+        {% if not user.is_authenticated and not no_prompt %}
+        <div class="d-flex justify-content-center">
+            <h2 class="text-warning">Want to Bid on an Album? <a class="btn btn-success mx-2"
+                    href="{% url 'register' %}">Register
+                    Now!</a>
+            </h2>
+        </div>
+        {% endif %}
         {% block body %}
         {% endblock %}
     </div>
