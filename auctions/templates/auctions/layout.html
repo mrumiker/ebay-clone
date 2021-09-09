@@ -14,12 +14,12 @@
 
 <body class="bg-dark text-light">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-success mb-2">
+    <nav class="navbar navbar-expand-lg navbar-dark mb-2" style="background-color: darkmagenta;">
         <a class="navbar-brand" href="{% url 'index' %}">
             <img src="{% static 'auctions/logo.png' %}"
                 alt="Rock Your Face Marketplace: The Classic Albums Auction Site" style="height: 5rem;">
         </a>
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto" style="font-size: large;">
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'index' %}">Listings</a>
             </li>
