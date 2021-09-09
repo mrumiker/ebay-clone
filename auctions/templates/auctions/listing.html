@@ -104,9 +104,13 @@
         <form action="{% url 'bid' %}" method="post">
           {% csrf_token %}
           <div class="form-row align-items-center justify-content-center">
+            <div class="col-auto text-warning">
+              <b>$</b>
+            </div>
+
             <div class="col-auto">
-              💲<input type="number" name="amount_0" min="{{ max_bid }}" step="0.01" required id="id_amount_0"
-                placeholder="Enter a Bid">
+              <input type="number" class="form-control" name="amount_0" min="{{ max_bid }}" step="0.01" required
+                id="id_amount_0" placeholder="Enter a Bid">
               <input type="hidden" name="amount_1" value="USD" id="id_amount_1">
               <input type="hidden" name="album" value="{{ album.id }}">
               <input type="hidden" name="bidder" value="{{ user.id }}">
