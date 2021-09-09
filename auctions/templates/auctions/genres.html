@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+{% block title %}Genres{%endblock%}
+
+{% block body %}
+
+<div class="card bg-secondary" id="listing-card">
+  <div class="row no-gutters">
+
+    <div class="col-md d-flex flex-column justify-content-between">
+      <div class="card-header bg-secondary">
+        <h4 class="card-title">Browse our Album Genres</h4>
+      </div>
+
+      <ul class="list-group list-group-flush">
+
+        {% for genre in genres %}
+        <li class="list-group-item list-group-flush bg-secondary px-5">
+          <a href="{% url 'genre' genre %}" class="card-link text-warning">{{ genre }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+
+    </div>
+
+
+    {% endblock %}

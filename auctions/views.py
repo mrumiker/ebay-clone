@@ -288,6 +288,13 @@ def genre(request, genre_name):
     })
 
 
+def all_genres(request):
+    genres = Genre.objects.all()
+    return render(request, "auctions/genres.html", {
+        "genres": sorted(genres, key=lambda genre: genre.name)
+    })
+
+
 def test(request):
     album = Album.objects.get(id=1)
     return render(request, "auctions/test.html", {
