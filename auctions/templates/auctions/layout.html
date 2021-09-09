@@ -5,6 +5,8 @@
 
 <head>
     <title>{% block title %}RockUrFace Marketplace{% endblock %}</title>
+    <meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -19,38 +21,47 @@
             <img src="{% static 'auctions/logo.png' %}"
                 alt="Rock Your Face Marketplace: The Classic Albums Auction Site" style="height: 5rem;">
         </a>
-        <ul class="navbar-nav mr-auto" style="font-size: large;">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Listings</a>
-            </li>
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'create' %}">Post a Listing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'watchlist' user.id %}">My Watchlist</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'albums' user.id %}">My Albums</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Log In</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'register' %}">Register</a>
-            </li>
-            {% endif %}
-        </ul>
-        <div>
-            {% if user.is_authenticated %}
-            Signed in as <strong>{{ user.username }}</strong>.
-            {% else %}
-            Not signed in.
-            {% endif %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Listings</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'create' %}">Post a Listing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'watchlist' user.id %}">My Watchlist</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'albums' user.id %}">My Albums</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+
+
+            <div>
+                {% if user.is_authenticated %}
+                Signed in as <strong>{{ user.username }}</strong>.
+                {% else %}
+                Not signed in.
+                {% endif %}
+            </div>
         </div>
     </nav>
     <!-- <hr class="bg-light" /> -->
@@ -58,6 +69,15 @@
         {% block body %}
         {% endblock %}
     </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
