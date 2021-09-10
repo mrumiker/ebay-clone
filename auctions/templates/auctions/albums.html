@@ -10,7 +10,8 @@
 
   {% for album in won %}
   <div class="card m-4 bg-secondary">
-    <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
+    <a href="{% url 'listing' album.id %}" class="card-link"><img src="{{ album.image_url }}" class="card-img-top"
+        alt="cover of {{ album }}"></a>
     <div class="card-body">
       <h4 class="card-title">{{ album.title }} {% if album.new %}<span
           class="badge badge-pill badge-danger">New</span>{%endif%}
@@ -58,7 +59,8 @@
       {% else %}
       <div class="card m-4 bg-secondary">
         {% endif %}
-        <img src="{{ album.image_url }}" class="card-img-top" alt="cover of {{ album }}">
+        <a href="{% url 'listing' album.id %}" class="card-link"><img src="{{ album.image_url }}" class="card-img-top"
+            alt="cover of {{ album }}"></a>
         <div class="card-body">
           <h4 class="card-title">{{ album.title }} {% if album.new %}<span
               class="badge badge-pill badge-danger">New</span>{%endif%}
