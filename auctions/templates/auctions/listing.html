@@ -142,8 +142,7 @@
   </div>
 </div>
 <section>
-  <div class="container-fluid my-4" id="comments-container">
-
+  <div class="container-fluid my-4">
     <h4>Comments</h4>
     {% for comment in comments %}
     <div class="row border border-white my-2 p-3">
@@ -158,17 +157,18 @@
 
   </div>
   {% if user.is_authenticated %}
-  <div id="comment-form-container" class="my-4">
-    <form action="{% url 'comment' %}" method="post">
-      {% csrf_token %}
-      <input type="hidden" name="album" value="{{ album.id }}">
-      <input type="hidden" name="commenter" value="{{ user.id }}">
+
+  <form action="{% url 'comment' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="album" value="{{ album.id }}">
+    <input type="hidden" name="commenter" value="{{ user.id }}">
+    <div class="form-group">
       <label for="comment-text">New Comment</label>
-      <textarea name="text" id="id_text" cols="49" rows="10" maxlength="1024" required
+      <textarea class="form-control" name="text" id="id_text" cols="49" rows="5" maxlength="1024" required
         placeholder="New Comment on {{album.title}}"></textarea>
-      <input type="submit" class="btn btn-warning" value="Post Comment">
-    </form>
-  </div>
+    </div>
+    <input type="submit" class="btn btn-warning" value="Post Comment">
+  </form>
   {% endif %}
 </section>
 {% endblock %}
