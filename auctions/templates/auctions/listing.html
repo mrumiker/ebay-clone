@@ -141,26 +141,34 @@
     </div>
   </div>
 </div>
-<div id="comments-container" class="my-4">
-  <h5>Comments</h5>
-  <ul>
-    {% for comment in comments %}
-    <li>{{ comment }} Posted {{ comment.datetime_posted }}</li>
-    {% endfor %}
-  </ul>
-</div>
-{% if user.is_authenticated %}
-<div id="comment-form-container" class="my-4">
-  <form action="{% url 'comment' %}" method="post">
-    {% csrf_token %}
-    <input type="hidden" name="album" value="{{ album.id }}">
-    <input type="hidden" name="commenter" value="{{ user.id }}">
-    <label for="comment-text">Comment</label>
-    <textarea name="text" id="id_text" cols="49" rows="10" maxlength="1024" required
-      placeholder="Type your comment on this listing here"></textarea>
-    <input type="submit" value="Post Comment">
-  </form>
-</div>
-{% endif %}
+<section>
+  <div class="container-fluid my-4" id="comments-container">
 
+    <h4>Comments</h4>
+    {% for comment in comments %}
+    <div class="row border border-white my-2 p-3">
+      <div class="comment">
+        <h6><a href="{% url 'albums' comment.commenter.id %}" class="card-link text-white-50">{{comment.commenter}}</a>
+          - {{ comment.datetime_posted }}
+        </h6>
+        <p>{{ comment.text }}</p>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+  {% if user.is_authenticated %}
+  <div id="comment-form-container" class="my-4">
+    <form action="{% url 'comment' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="album" value="{{ album.id }}">
+      <input type="hidden" name="commenter" value="{{ user.id }}">
+      <label for="comment-text">New Comment</label>
+      <textarea name="text" id="id_text" cols="49" rows="10" maxlength="1024" required
+        placeholder="Your comment on {{album.title}}"></textarea>
+      <input type="submit" class="btn btn-warning" value="Post Comment">
+    </form>
+  </div>
+  {% endif %}
+</section>
 {% endblock %}
