@@ -68,10 +68,12 @@
     <!-- <hr class="bg-light" /> -->
     <div style="padding: 10px;">
         {% if not user.is_authenticated and not no_prompt %}
-        <div class="d-flex justify-content-center">
-            <h2 class="text-warning">Want to Bid on an Album? <a class="btn btn-success mx-2"
+        <div class="container-fluid d-flex justify-content-center">
+            <h2 class="text-warning text-center mx-auto">Want to Bid on an Album? <a class="btn btn-success mx-2"
                     href="{% url 'register' %}">Register
-                    Now!</a>
+                    Now!</a> <span class="text-light"> or </span> <a class="btn btn-warning ml-1"
+                    href="{% url 'login' %}">Log
+                    In</a>
             </h2>
         </div>
         <hr class="bg-light" />
