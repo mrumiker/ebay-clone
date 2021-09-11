@@ -29,7 +29,7 @@
           {% if album.top_bid %}
           {% if user.id == album.top_bidder.id %}
           <li class="list-group-item bg-dark text-light">Current bid is <b>{{ album.top_bid }}</b> by
-            <a href="{% url 'albums' user.id %}" class="card-link text-success">YOU</a>
+            <a href="{% url 'albums' user.id %}" class="card-link text-success"><b>YOU</b></a>
           </li>
           {% else %}
           <li class="list-group-item bg-secondary text-white">Current bid is <b>{{ album.top_bid }}</b> by <a
