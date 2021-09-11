@@ -310,10 +310,3 @@ def search(request):
         "active_listings": list(reversed(active_listings)),
         "closed_listings": sorted(closed_listings, key=lambda k: k.datetime_closed, reverse=True),
     })
-
-
-def test(request):
-    album = Album.objects.get(id=1)
-    return render(request, "auctions/test.html", {
-        "album": album
-    })
