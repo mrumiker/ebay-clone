@@ -16,7 +16,7 @@
 
 <body class="bg-dark text-light">
 
-    <nav class="navbar navbar-expand-lg navbar-dark mb-2" style="background-color: darkmagenta;">
+    <nav class="navbar navbar-expand-xl navbar-dark mb-2" style="background-color: darkmagenta;">
         <a class="navbar-brand" href="{% url 'index' %}">
             <img src="{% static 'auctions/logo.png' %}"
                 alt="Rock Your Face Marketplace: The Classic Albums Auction Site" style="height: 5rem;">
@@ -27,7 +27,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto" style="font-size: large">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item mx-2">
                     <a class="nav-link" href="{% url 'index' %}">Listings</a>
                 </li>
@@ -45,19 +45,27 @@
                     <a class="nav-link" href="{% url 'albums' user.id %}">My Albums</a>
                 </li>
                 {% endif %}
+                <li class="nav-item mx-2">
+                    <form action="{% url 'search' %}" method="post" class="form-inline my-2 my-xl-0">
+                        {% csrf_token %}
+                        <input type="text" name="search_str" class="form-control mr-sm-2"
+                            placeholder="Search Album or Artist">
+                        <input type="submit" class="btn btn-outline-light my-2 my-sm-0" value="Search">
+                    </form>
+                </li>
             </ul>
 
 
             <div>
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <li class="nav-item mx-2">
                         <a class="btn btn-warning" href="{% url 'logout' %}">Logout {{user.username}}</a>
                     </li>
                 </ul>
                 {% else %}
                 <ul class="nav">
-                    <li class="nav-item">
+                    <li class="nav-item mx-2">
                         <a class="btn btn-warning" href="{% url 'login' %}">Log In</a>
                     </li>
                 </ul>

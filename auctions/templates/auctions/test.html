@@ -4,7 +4,6 @@
 <h2>Test</h2>
 <form action="{% url 'search' %}" method="post">
   {% csrf_token %}
-
   <input type="text" name="search_str" class="form-control">
   <input type="submit" class="btn btn-primary" value="Search">
 </form>
