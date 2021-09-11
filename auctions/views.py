@@ -282,7 +282,6 @@ def genre(request, genre_name):
             active_listings.append(album)
     return render(request, "auctions/genre.html", {
         "genre": genre,
-        "albums": albums,
         "active_listings": list(reversed(active_listings)),
         "closed_listings": sorted(closed_listings, key=lambda k: k.datetime_closed, reverse=True),
     })
@@ -292,6 +291,24 @@ def all_genres(request):
     genres = Genre.objects.all()
     return render(request, "auctions/genres.html", {
         "genres": sorted(genres, key=lambda genre: genre.name)
+    })
+
+
+def search(request):
+    search_str = request.POST["search_str"]
+    albums = Album.objects.all()
+    active_listings = []
+    closed_listings = []
+    for album in albums:
+        if search_str.lower() in album.title.lower() or search_str.lower() in album.artist.lower():
+            if album.datetime_closed:
+                closed_listings.append(album)
+            else:
+                active_listings.append(album)
+    return render(request, "auctions/search.html", {
+        "search_str": search_str,
+        "active_listings": list(reversed(active_listings)),
+        "closed_listings": sorted(closed_listings, key=lambda k: k.datetime_closed, reverse=True),
     })
 
 

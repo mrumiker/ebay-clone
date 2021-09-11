@@ -21,4 +21,5 @@ urlpatterns = [
     path("albums/<int:user_id>", views.albums, name="albums"),
     path("genre/<str:genre_name>", views.genre, name="genre"),
     path("all_genres", views.all_genres, name="all_genres"),
+    path("search", views.search, name="search"),
 ]

@@ -2,13 +2,11 @@
 
 {% block body %}
 <h2>Test</h2>
-<form action="{% url 'add_to_watchlist' %}" method="post">
+<form action="{% url 'search' %}" method="post">
   {% csrf_token %}
 
-  <input type="hidden" name="album" value="{{ album.id }}"><br />
-
-  <input type="hidden" name="user" value="{{ user.id }}"><br />
-  <input type="submit" class="btn btn-link" value="Add to Watchlist">
+  <input type="text" name="search_str" class="form-control">
+  <input type="submit" class="btn btn-primary" value="Search">
 </form>
 
 {% endblock %}
