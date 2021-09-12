@@ -93,7 +93,7 @@
       {% if user.is_authenticated %}
       <div class="card-body text-center">
         {% if album.datetime_closed %}
-        <button type="button" class="btn btn-secondary w-100" disabled>NOT FOR SALE</button>
+        <button type="button" class="btn btn-dark w-100" disabled>NOT FOR SALE</button>
         {% elif user.id == album.seller.id %}
         <form action="{% url 'close' %}" method="post">
           {% csrf_token %}
