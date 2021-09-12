@@ -300,6 +300,7 @@ def search(request):
     active_listings = []
     closed_listings = []
     for album in albums:
+        album.new = is_new(album.datetime_created)
         if search_str.lower() in album.title.lower() or search_str.lower() in album.artist.lower():
             if album.datetime_closed:
                 closed_listings.append(album)
