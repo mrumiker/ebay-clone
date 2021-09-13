@@ -6,5 +6,5 @@
 
 ## Walkthrough
 
-[![RockUrFace Marketplace](https://img.youtube.com/vi/gGYqQsDHh4g)](https://youtu.be/gGYqQsDHh4g)
+[![RockUrFace Marketplace](https://img.youtube.com/vi/gGYqQsDHh4g/0.jpg)](https://youtu.be/gGYqQsDHh4g)
 
