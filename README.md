@@ -10,6 +10,10 @@
 
 Do you dig tunes? This site provides a template for an eCommerce site for auctioning albums. With an attractive, responsive user interface, you can post your albums, bid on others, or just browse and enjoy the selection.
 
+## Video Walkthrough
+
+[![RockUrFace Marketplace](https://img.youtube.com/vi/gGYqQsDHh4g/0.jpg)](https://youtu.be/gGYqQsDHh4g)
+
 ## Want to try it out?
 
 First, you'll need to [clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
@@ -29,15 +33,10 @@ This will open the development server. In your browser, visit the url provided t
 
 I would recommend starting by adding "/admin" to the end of the url and logging in with your superuser account.
 
-On this screen, use the "+Add" button to the right of "Genres" to add some genres (Rock, Hip Hop, Soul etc.) to your database. You can also come back and do this later, and make any changes to Albums, Bids, Comments, Genres, and Users here in admin!
-
 ![Django Admin screen with list of categories that can be added to, deleted from, changed, or viewed. Categories are Albums, Bids, Comments, Genres and Users](auctions/static/auctions/AdminSS.png)
 
-If you're ready, click "View Site" in the upper right corner (or navigate back to the site URL) and have fun. The video walkthrough below gives a tour of the site.
+On this screen, use the "+Add" button to the right of "Genres" to add some genres (Rock, Hip Hop, Soul etc.) to your database. You can also come back and do this later, and make any changes to Albums, Bids, Comments, Genres, and Users here in admin!
+
+If you're ready, click "View Site" in the upper right corner (or navigate back to the site URL) and have fun. The video walkthrough above gives a tour of the site.
 
 Rock on! 🎸 🎹 🥁 🎙️ 🎚️ 🧑‍🎤
-
-## Video Walkthrough
-
-[![RockUrFace Marketplace](https://img.youtube.com/vi/gGYqQsDHh4g/0.jpg)](https://youtu.be/gGYqQsDHh4g)
-
