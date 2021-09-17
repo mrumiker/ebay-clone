@@ -40,3 +40,11 @@ On this screen, use the "+Add" button to the right of "Genres" to add some genre
 If you're ready, click "View Site" in the upper right corner (or navigate back to the site URL) and have fun. The video walkthrough above gives a tour of the site.
 
 Rock on! 🎸 🎹 🥁 🎙️ 🎚️ 🧑‍🎤
+
+### This project was built with
+
+- Python
+- Django
+- SQLite3
+- Bootstrap
+
