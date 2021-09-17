@@ -10,7 +10,7 @@
 
 Do you dig tunes? This site provides a template for an eCommerce site for auctioning albums. With an attractive, responsive user interface, you can post your albums, bid on others, or just browse and enjoy the selection.
 
-This originated with a project I completed for Harvard's [CS50 Web Programming course](https://cs50.harvard.edu/web/2020/). [Project Description](https://cs50.harvard.edu/web/2020/projects/2/commerce/)
+This originated with a [project](https://cs50.harvard.edu/web/2020/projects/2/commerce/) I completed for Harvard's [CS50 Web Programming course](https://cs50.harvard.edu/web/2020/).
 
 ## Video Walkthrough
 
