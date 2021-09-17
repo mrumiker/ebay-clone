@@ -37,7 +37,7 @@ I would recommend starting by adding "/admin" to the end of the url and logging 
 
 On this screen, use the "+Add" button to the right of "Genres" to add some genres (Rock, Hip Hop, Soul etc.) to your database. You can also come back and do this later, and make any changes to Albums, Bids, Comments, Genres, and Users here in admin!
 
-If you're ready, click "View Site" in the upper right corner (or navigate back to the site URL) and have fun. The video walkthrough above gives a tour of the site.
+If you're ready, click "View Site" in the upper right corner (or navigate back to the site URL) and have fun creating users, posting albums, bidding, and selling. The video walkthrough above gives a tour of the site.
 
 Rock on! 🎸 🎹 🥁 🎙️ 🎚️ 🧑‍🎤
 
