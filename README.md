@@ -10,7 +10,14 @@
 
 Do you dig tunes? This site provides a template for an eCommerce site for auctioning albums. With an attractive, responsive user interface, you can post your albums, bid on others, or just browse and enjoy the selection.
 
-This originated as a [project](https://cs50.harvard.edu/web/2020/projects/2/commerce/) I completed for Harvard's [CS50 Web Programming course](https://cs50.harvard.edu/web/2020/).
+The RockUrFace Marketplace site runs on a SQLite database consisting of these tables:
+- Albums (including Title, Artist, Year, Description, and linked to Users who posted and bid on the album, and multiple Genres and multiple Watchers for each album, which allows users to maintain a 'Watchlist' of albums)
+- Users (including Username, hashed Password)
+- Genres (including name and description)
+- Bids (including amounts, each linked to a particular Album and User)
+- Comments (including comment text and datetime, each linked to a particular Album and User)
+
+RockUrFace Marketplace originated as a [project](https://cs50.harvard.edu/web/2020/projects/2/commerce/) for Harvard's [CS50 Web Programming course](https://cs50.harvard.edu/web/2020/).
 
 ## Video Walkthrough
 
@@ -49,6 +56,3 @@ Rock on! 🎸 🎹 🥁 🎙️ 🎚️ 🧑‍🎤
 - Django
 - SQLite3
 - Bootstrap
-
-
-
