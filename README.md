@@ -8,7 +8,7 @@
 
 ## Welcome
 
-Do you dig tunes? This site provides a template for an eCommerce site for auctioning albums. With an attractive, responsive user interface, you can post your albums, bid on others, or just browse and enjoy the selection.
+Do you dig tunes? RockUrFace Marketplace is a Full Stack Python/Django eCommerce site for auctioning albums. With an attractive, responsive user interface, you can post your albums, bid on others, or just browse and enjoy the selection.
 
 The RockUrFace Marketplace site runs on a SQLite database consisting of these tables:
 - Albums (including Title, Artist, Year, Description, and linked to Users who posted and bid on the album, and multiple Genres and multiple Watchers for each album, which allows users to maintain a 'Watchlist' of albums)
