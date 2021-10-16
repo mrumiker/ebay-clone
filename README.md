@@ -17,7 +17,7 @@ The RockUrFace Marketplace site runs on a SQLite database consisting of these ta
 - Bids (including amounts, each linked to a particular Album and User)
 - Comments (including comment text and datetime, each linked to a particular Album and User)
 
-RockUrFace Marketplace originated as a [project](https://cs50.harvard.edu/web/2020/projects/2/commerce/) for Harvard's [CS50 Web Programming course](https://cs50.harvard.edu/web/2020/).
+RockUrFace Marketplace originated as a class project. Everything except for the Register, Login, and Logout functionalities are my work.
 
 ## Video Walkthrough
 
